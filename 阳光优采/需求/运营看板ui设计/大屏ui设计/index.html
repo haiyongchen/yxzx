@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阳光优采 | 数字化运营看板 V11 (Pro Max)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Sans SC', sans-serif;
+            background: radial-gradient(circle at 15% 10%, #ffffff 0%, #f1f5f9 40%, #e2e8f0 100%);
+            background-attachment: fixed;
+            color: #0f172a;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --fira-code: 'Fira Code', 'JetBrains Mono', monospace;
+            --fira-sans: 'Fira Sans', 'Inter', sans-serif;
+        }
+
+        .data-mono {
+            font-family: var(--fira-code);
+            font-feature-settings: "tnum";
+            font-variant-numeric: tabular-nums;
+        }
+
+        .fira-sans {
+            font-family: var(--fira-sans);
+        }
+
+        /* Glassmorphism 2.0 */
+        .glass-card-premium {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(79, 70, 229, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 24px;
+        }
+
+        .glass-card-premium:hover {
+            background: rgba(255, 255, 255, 0.55);
+            border-color: rgba(79, 70, 229, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px -5px rgba(31, 38, 135, 0.08);
+        }
+
+        /* Table Specifics */
+        .premium-table thead th {
+            font-family: var(--fira-code);
+            letter-spacing: 0.1em;
+            background: rgba(79, 70, 229, 0.03);
+        }
+
+        .rank-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: 800;
+            background: rgba(79, 70, 229, 0.08);
+            color: #4F46E5;
+        }
+
+        .rank-top-1 {
+            background: #4F46E5;
+            color: white;
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+        }
+
+        .progress-bar-bg {
+            height: 4px;
+            width: 100%;
+            background: rgba(79, 70, 229, 0.05);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4F46E5, #818CF8);
+            border-radius: 2px;
+        }
+
+        .zone-tag {
+            background: rgba(79, 70, 229, 0.08);
+            border: 1px solid rgba(79, 70, 229, 0.15);
+            color: #4338CA;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1px 8px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 800;
+            font-family: var(--fira-sans);
+            white-space: nowrap;
+        }
+
+        /* V11 Glassmorphism Core Utilities */
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 1);
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px -15px rgba(15, 23, 42, 0.1), inset 0 1px 0 rgba(255, 255, 255, 1);
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+
+        .dark-glass-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 27, 75, 0.95));
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .dark-glass-card:hover {
+            box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            background-color: transparent;
+        }
+
+        .glass-header {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+            z-index: 50;
+        }
+
+        .glass-badge {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px -2px rgba(15, 23, 42, 0.05);
+        }
+
+        /* Abstract Background Decorators */
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .orb-1 {
+            top: -10%;
+            left: -5%;
+            width: 50vw;
+            height: 50vw;
+            background: #e0e7ff;
+        }
+
+        .orb-2 {
+            bottom: -20%;
+            right: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: #dcfce7;
+        }
+
+        .orb-3 {
+            top: 40%;
+            left: 60%;
+            width: 30vw;
+            height: 30vw;
+            background: #fef3c7;
+            opacity: 0.3;
+        }
+
+        /* Fluid Layout Constants */
+        .dashboard-wrapper {
+            max-width: 1680px;
+            margin: 0 auto;
+            padding: 2.5rem;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .chart-container {
+            min-height: 400px;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Layout Grid */
+        .top-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .kpi-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 1.5rem;
+            height: 420px;
+        }
+
+        .highlight-group {
+            height: 420px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flex-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .flex-item-half {
+            flex: 1 1 calc(50% - 1rem);
+            min-width: 480px;
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard-wrapper {
+                padding: 1.5rem;
+            }
+
+            .top-section {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-group {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .flex-item-half {
+                flex: 1 1 100%;
+                min-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .kpi-group {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .top-section {
+                gap: 1rem;
+            }
+
+            .flex-grid {
+                gap: 1rem;
+            }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.4);
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.8);
+        }
+
+        .feed-scroll {
+            animation: feedScroll 20s linear infinite;
+        }
+
+        .feed-scroll:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes feedScroll {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+    </style>
+</head>
+
+<body class="custom-scrollbar">
+    <!-- Ambient Background Elements -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <div class="dashboard-wrapper space-y-10">
+
+        <!-- Premium Header -->
+        <header class="flex flex-wrap items-center justify-between gap-6 pb-4">
+            <div class="flex items-center gap-5">
+                <div
+                    class="w-14 h-14 bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-indigo-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                        <path d="M2 17l10 5 10-5" />
+                        <path d="M2 12l10 5 10-5" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black text-slate-900 tracking-tight leading-none mb-2">阳光优采运营罗盘</h1>
+                    <div class="flex items-center gap-3">
+                        <span
+                            class="px-2.5 py-1 glass-badge text-indigo-700 rounded-lg text-[10px] font-bold uppercase tracking-widest leading-none">Enterprise
+                            Analytics V11</span>
+                        <span id="real-time-clock"
+                            class="text-[11px] font-black text-slate-400 data-mono tracking-wider">2026-03-10
+                            10:00:00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 px-5 py-2.5 glass-card rounded-2xl">
+                <span
+                    class="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.8)] animate-pulse"></span>
+                <span class="text-[11px] font-bold text-slate-700 uppercase tracking-widest mt-0.5">全息数据舱 · 在线</span>
+            </div>
+        </header>
+
+        <!-- KPI & Highlights Row -->
+        <div class="top-section">
+            <!-- Strategic KPIs -->
+            <div class="kpi-group">
+                <div class="glass-card p-6 flex flex-col justify-between text-center">
+                    <div>
+                        <p
+                            class="text-[15px] font-bold text-slate-600 uppercase tracking-wider mb-3 flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            累计成交金额 (元)
+                        </p>
+                        <h2 class="text-[1.6rem] font-black text-slate-900 data-mono tracking-tight kpi-counter whitespace-nowrap"
+                            data-target="65745.49" data-prefix="¥ " data-decimals="2">0</h2>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-200/50">
+                        <div
+                            class="flex items-center justify-between text-[10px] font-bold text-slate-400 mb-1.5 uppercase tracking-widest">
+                            <span>目标额度</span>
+                            <span class="data-mono">¥65,745 / ¥200,000</span>
+                        </div>
+                        <div class="h-1.5 w-full bg-slate-200/50 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-full"
+                                style="width: 32.9%"></div>
+                        </div>
+                        <p class="text-[10px] font-bold text-indigo-500 mt-1.5 data-mono tracking-wider">完成 32.9%</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 flex flex-col justify-between text-center">
+                    <div>
+                        <p
+                            class="text-[15px] font-bold text-slate-600 uppercase tracking-wider mb-3 flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                            </svg>
+                            累计订单总数 (笔)
+                        </p>
+                        <h2 class="text-[1.6rem] font-black text-slate-900 data-mono tracking-tight kpi-counter whitespace-nowrap"
+                            data-target="101" data-decimals="0">0</h2>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-200/50">
+                        <p
+                            class="text-[11px] font-bold text-amber-600 flex items-center gap-1.5 bg-amber-50/50 w-fit mx-auto px-2.5 py-1 rounded-full">
+                            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                            </svg>
+                            12.3% <span class="text-amber-600/60 ml-1 tracking-wider uppercase">较上月</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 flex flex-col justify-between text-center">
+                    <div>
+                        <p
+                            class="text-[15px] font-bold text-slate-600 uppercase tracking-wider mb-3 flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                            合作供应商 (家)
+                        </p>
+                        <h2 class="text-[1.6rem] font-black text-slate-900 data-mono tracking-tight kpi-counter whitespace-nowrap"
+                            data-target="16" data-decimals="0">0</h2>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-200/50 flex flex-wrap gap-2">
+                        <span
+                            class="px-2.5 py-1 bg-white border border-slate-200 rounded-md text-[10px] font-bold text-slate-600 flex items-center gap-1.5"><span
+                                class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span> 9 电商型</span>
+                        <span
+                            class="px-2.5 py-1 bg-white border border-slate-200 rounded-md text-[10px] font-bold text-slate-600 flex items-center gap-1.5"><span
+                                class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> 7 本地型</span>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 flex flex-col justify-between text-center">
+                    <div>
+                        <p
+                            class="text-[15px] font-bold text-slate-600 uppercase tracking-wider mb-3 flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            交易客户数 (家)
+                        </p>
+                        <h2 class="text-[1.6rem] font-black text-slate-900 data-mono tracking-tight kpi-counter whitespace-nowrap"
+                            data-target="33" data-decimals="0">0</h2>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-200/50">
+                        <p
+                            class="text-[11px] font-bold text-sky-600 uppercase tracking-widest bg-sky-50/50 w-fit px-2.5 py-1 rounded-md">
+                            100% Core Matrix</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 flex flex-col justify-between text-center">
+                    <div>
+                        <p
+                            class="text-[15px] font-bold text-slate-600 uppercase tracking-wider mb-3 flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z" />
+                            </svg>
+                            退货率
+                        </p>
+                        <h2 class="text-[1.6rem] font-black text-slate-900 data-mono tracking-tight kpi-counter whitespace-nowrap"
+                            data-target="2.1" data-suffix="%" data-decimals="1">0</h2>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-200/50">
+                        <p
+                            class="text-[11px] font-bold text-emerald-600 flex items-center gap-1.5 bg-emerald-50/50 w-fit mx-auto px-2.5 py-1 rounded-full">
+                            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                            </svg>
+                            0.3% <span class="text-emerald-600/60 ml-1 tracking-wider uppercase">较上月</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 flex flex-col justify-between text-center">
+                    <div>
+                        <p
+                            class="text-[15px] font-bold text-slate-600 uppercase tracking-wider mb-3 flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4 text-violet-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            采购人数量
+                        </p>
+                        <h2 class="text-[1.6rem] font-black text-slate-900 data-mono tracking-tight kpi-counter whitespace-nowrap"
+                            data-target="28" data-decimals="0">0</h2>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-200/50">
+                        <p
+                            class="text-[11px] font-bold text-violet-600 flex items-center gap-1.5 bg-violet-50/50 w-fit mx-auto px-2.5 py-1 rounded-full">
+                            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                            </svg>
+                            3.7% <span class="text-violet-600/60 ml-1 tracking-wider uppercase">较上月</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 最新动态 (Scrolling Feed) -->
+            <div class="highlight-group glass-card p-6 overflow-hidden relative flex flex-col">
+                <h4
+                    class="text-sm font-bold uppercase mb-4 text-slate-700 tracking-[0.1em] flex items-center justify-between border-b border-slate-200/50 pb-3">
+                    <span class="flex items-center gap-2.5">
+                        <span
+                            class="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.7)] animate-pulse"></span>
+                        最新动态
+                    </span>
+                    <span class="text-[10px] text-slate-400 font-mono tracking-widest">LIVE FEED</span>
+                </h4>
+
+                <div class="flex-1 overflow-hidden relative"
+                    style="mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);">
+                    <div class="feed-scroll">
+                        <!-- 第一份（原始内容） -->
+                        <div class="space-y-3 pb-3">
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50/80 border border-slate-100">
+                                <span
+                                    class="w-7 h-7 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">供</span>
+                                <div class="min-w-0">
+                                    <p class="text-[12px] font-bold text-slate-800 leading-tight">青海盛源机电设备有限公司 入驻</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 font-medium">供应类目：机电设备 · 已通过审核</p>
+                                </div>
+                                <span class="text-[9px] text-slate-400 font-mono flex-shrink-0 mt-0.5">10分钟前</span>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50/80 border border-slate-100">
+                                <span
+                                    class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">区</span>
+                                <div class="min-w-0">
+                                    <p class="text-[12px] font-bold text-slate-800 leading-tight">新疆阳光采购平台 专区开设</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 font-medium">新增"医疗器械"专区 · 已上线</p>
+                                </div>
+                                <span class="text-[9px] text-slate-400 font-mono flex-shrink-0 mt-0.5">25分钟前</span>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50/80 border border-slate-100">
+                                <span
+                                    class="w-7 h-7 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">供</span>
+                                <div class="min-w-0">
+                                    <p class="text-[12px] font-bold text-slate-800 leading-tight">西宁恒通建材有限公司 入驻</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 font-medium">供应类目：建筑材料 · 资质审核中</p>
+                                </div>
+                                <span class="text-[9px] text-slate-400 font-mono flex-shrink-0 mt-0.5">1小时前</span>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50/80 border border-slate-100">
+                                <span
+                                    class="w-7 h-7 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">区</span>
+                                <div class="min-w-0">
+                                    <p class="text-[12px] font-bold text-slate-800 leading-tight">中国煤地电子商城 专区开设</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 font-medium">新增"矿山配件"专区 · 已上线</p>
+                                </div>
+                                <span class="text-[9px] text-slate-400 font-mono flex-shrink-0 mt-0.5">2小时前</span>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50/80 border border-slate-100">
+                                <span
+                                    class="w-7 h-7 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">供</span>
+                                <div class="min-w-0">
+                                    <p class="text-[12px] font-bold text-slate-800 leading-tight">大连鑫远工贸集团 入驻</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 font-medium">供应类目：钢材贸易 · 已通过审核</p>
+                                </div>
+                                <span class="text-[9px] text-slate-400 font-mono flex-shrink-0 mt-0.5">3小时前</span>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50/80 border border-slate-100">
+                                <span
+                                    class="w-7 h-7 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">区</span>
+                                <div class="min-w-0">
+                                    <p class="text-[12px] font-bold text-slate-800 leading-tight">邯郸优采平台 专区开设</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 font-medium">新增"劳保用品"专区 · 已上线</p>
+                                </div>
+                                <span class="text-[9px] text-slate-400 font-mono flex-shrink-0 mt-0.5">4小时前</span>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50/80 border border-slate-100">
+                                <span
+                                    class="w-7 h-7 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">供</span>
+                                <div class="min-w-0">
+                                    <p class="text-[12px] font-bold text-slate-800 leading-tight">新疆天山化工有限公司 入驻</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 font-medium">供应类目：化工原料 · 已通过审核</p>
+                                </div>
+                                <span class="text-[9px] text-slate-400 font-mono flex-shrink-0 mt-0.5">5小时前</span>
+                            </div>
+                        </div>
+                        <!-- 第二份（复制内容，实现无缝衔接） -->
+                        <div class="space-y-3 pb-3">
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50/80 border border-slate-100">
+                                <span
+                                    class="w-7 h-7 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">供</span>
+                                <div class="min-w-0">
+                                    <p class="text-[12px] font-bold text-slate-800 leading-tight">青海盛源机电设备有限公司 入驻</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 font-medium">供应类目：机电设备 · 已通过审核</p>
+                                </div>
+                                <span class="text-[9px] text-slate-400 font-mono flex-shrink-0 mt-0.5">10分钟前</span>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50/80 border border-slate-100">
+                                <span
+                                    class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">区</span>
+                                <div class="min-w-0">
+                                    <p class="text-[12px] font-bold text-slate-800 leading-tight">新疆阳光采购平台 专区开设</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 font-medium">新增"医疗器械"专区 · 已上线</p>
+                                </div>
+                                <span class="text-[9px] text-slate-400 font-mono flex-shrink-0 mt-0.5">25分钟前</span>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50/80 border border-slate-100">
+                                <span
+                                    class="w-7 h-7 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">供</span>
+                                <div class="min-w-0">
+                                    <p class="text-[12px] font-bold text-slate-800 leading-tight">西宁恒通建材有限公司 入驻</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 font-medium">供应类目：建筑材料 · 资质审核中</p>
+                                </div>
+                                <span class="text-[9px] text-slate-400 font-mono flex-shrink-0 mt-0.5">1小时前</span>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50/80 border border-slate-100">
+                                <span
+                                    class="w-7 h-7 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">区</span>
+                                <div class="min-w-0">
+                                    <p class="text-[12px] font-bold text-slate-800 leading-tight">中国煤地电子商城 专区开设</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 font-medium">新增"矿山配件"专区 · 已上线</p>
+                                </div>
+                                <span class="text-[9px] text-slate-400 font-mono flex-shrink-0 mt-0.5">2小时前</span>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50/80 border border-slate-100">
+                                <span
+                                    class="w-7 h-7 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">供</span>
+                                <div class="min-w-0">
+                                    <p class="text-[12px] font-bold text-slate-800 leading-tight">大连鑫远工贸集团 入驻</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 font-medium">供应类目：钢材贸易 · 已通过审核</p>
+                                </div>
+                                <span class="text-[9px] text-slate-400 font-mono flex-shrink-0 mt-0.5">3小时前</span>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50/80 border border-slate-100">
+                                <span
+                                    class="w-7 h-7 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">区</span>
+                                <div class="min-w-0">
+                                    <p class="text-[12px] font-bold text-slate-800 leading-tight">邯郸优采平台 专区开设</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 font-medium">新增"劳保用品"专区 · 已上线</p>
+                                </div>
+                                <span class="text-[9px] text-slate-400 font-mono flex-shrink-0 mt-0.5">4小时前</span>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50/80 border border-slate-100">
+                                <span
+                                    class="w-7 h-7 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">供</span>
+                                <div class="min-w-0">
+                                    <p class="text-[12px] font-bold text-slate-800 leading-tight">新疆天山化工有限公司 入驻</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 font-medium">供应类目：化工原料 · 已通过审核</p>
+                                </div>
+                                <span class="text-[9px] text-slate-400 font-mono flex-shrink-0 mt-0.5">5小时前</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Strategic Charts Matrix (Fluid Glass Cards) -->
+        <!-- 月度流动性组合分析 (Full Width) -->
+        <div class="glass-card p-7 pb-4 flex flex-col" style="min-height: 350px">
+            <div class="mb-2 flex items-center justify-between">
+                <div>
+                    <h3 class="text-base font-bold text-slate-900 tracking-tight">月度交易趋势</h3>
+                    <p class="text-[10px] text-slate-400 font-bold tracking-widest uppercase mt-0.5">Liquidity Trend
+                        (2025-2026)</p>
+                </div>
+            </div>
+            <div id="v11-trend-chart" class="chart-container flex-1"></div>
+        </div>
+
+        <!-- 3-Column Chart Row -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+            <div class="glass-card p-7 pb-4 flex flex-col">
+                <div class="mb-2 flex items-center justify-between">
+                    <div>
+                        <h3 class="text-base font-bold text-slate-900 tracking-tight">各专区交易占比</h3>
+                        <p class="text-[10px] text-slate-400 font-bold tracking-widest uppercase mt-0.5">Strategic
+                            Partition Matrix</p>
+                    </div>
+                </div>
+                <div id="v11-breakdown-chart" class="chart-container flex-1"></div>
+            </div>
+
+            <div class="glass-card p-7 pb-4 flex flex-col">
+                <div class="mb-2 flex items-center justify-between">
+                    <div>
+                        <h3 class="text-base font-bold text-slate-900 tracking-tight">新增供应商趋势</h3>
+                        <p class="text-[10px] text-slate-400 font-bold tracking-widest uppercase mt-0.5">Supplier
+                            Induction Dynamics</p>
+                    </div>
+                </div>
+                <div id="v11-supplier-chart" class="chart-container flex-1"></div>
+            </div>
+
+            <div class="glass-card p-7 pb-4 flex flex-col">
+                <div class="mb-2 flex items-center justify-between">
+                    <div>
+                        <h3 class="text-base font-bold text-slate-900 tracking-tight">交易商品数量趋势</h3>
+                        <p class="text-[10px] text-slate-400 font-bold tracking-widest uppercase mt-0.5">Transaction
+                            Asset Velocity</p>
+                    </div>
+                </div>
+                <div id="v11-quantity-chart" class="chart-container flex-1"></div>
+            </div>
+        </div>
+
+        <!-- Business Analytics Leaderboards (Premium Redesign) -->
+        <div class="space-y-6 fira-sans">
+            <!-- Row 1: Enterprise Rankings -->
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                <div class="glass-card-premium flex flex-col group/card">
+                    <div class="px-7 py-5 border-b border-indigo-500/5">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-900 tracking-[0.2em] uppercase">采购企业订单量top10
+                                </h4>
+                                <p class="text-[9px] text-slate-400 font-medium tracking-widest uppercase mt-0.5">
+                                    Enterprise Volume Leaderboard</p>
+                            </div>
+                            <div class="p-2 bg-indigo-50 rounded-lg group-hover/card:bg-indigo-100 transition-colors">
+                                <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto p-2">
+                        <table class="w-full text-left text-[11px] border-separate border-spacing-y-1 premium-table">
+                            <thead class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                                <tr>
+                                    <th class="px-4 py-2 first:rounded-l-lg">排名</th>
+                                    <th class="px-4 py-2">采购企业</th>
+                                    <th class="px-4 py-2 text-center">订单数</th>
+                                    <th class="px-4 py-2 text-right last:rounded-r-lg">金额 (元)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-700">
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer group/row">
+                                    <td class="px-4 py-3 first:rounded-l-lg"><span
+                                            class="rank-badge rank-top-1">1</span></td>
+                                    <td class="px-4 py-3">
+                                        <div class="font-bold text-slate-900 truncate max-w-[180px]">中化地质矿山总局江苏地质勘查院
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="text-center data-mono font-bold text-indigo-600">14</div>
+                                        <div class="progress-bar-bg">
+                                            <div class="progress-bar-fill" style="width: 100%"></div>
+                                        </div>
+                                    </td>
+                                    <td
+                                        class="px-4 py-3 text-right last:rounded-r-lg data-mono font-bold text-slate-900">
+                                        13,337.38</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">2</span></td>
+                                    <td class="px-4 py-2 text-slate-600 truncate max-w-[180px]">中国煤炭地质总局一二九勘探队</td>
+                                    <td class="px-4 py-2">
+                                        <div class="text-center data-mono">5</div>
+                                        <div class="progress-bar-bg">
+                                            <div class="progress-bar-fill opacity-60" style="width: 35%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">5,936.47</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">3</span></td>
+                                    <td class="px-4 py-2 text-slate-600 truncate max-w-[180px]">中煤地第二勘探局集团有限责任公司</td>
+                                    <td class="px-4 py-2">
+                                        <div class="text-center data-mono">4</div>
+                                        <div class="progress-bar-bg">
+                                            <div class="progress-bar-fill opacity-60" style="width: 28%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">1,557.90</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">4</span></td>
+                                    <td class="px-4 py-2 text-slate-600">新疆医药产业集团有限公司</td>
+                                    <td class="px-4 py-2">
+                                        <div class="text-center data-mono">4</div>
+                                        <div class="progress-bar-bg">
+                                            <div class="progress-bar-fill opacity-40" style="width: 28%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">1,045.60</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">5</span></td>
+                                    <td class="px-4 py-2 text-slate-600">中化地质矿山总局陕西地质勘查院</td>
+                                    <td class="px-4 py-2">
+                                        <div class="text-center data-mono">2</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">283.01</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">6</span></td>
+                                    <td class="px-4 py-2 text-slate-600">中国煤炭地质总局水文地质局</td>
+                                    <td class="px-4 py-2">
+                                        <div class="text-center data-mono">2</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">336.65</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">7</span></td>
+                                    <td class="px-4 py-2 text-slate-600">中煤航测遥感集团航测工程分公司</td>
+                                    <td class="px-4 py-2">
+                                        <div class="text-center data-mono">2</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">4,902.55</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">8</span></td>
+                                    <td class="px-4 py-2 text-slate-600">中国煤炭地质总局勘查研究总院</td>
+                                    <td class="px-4 py-2">
+                                        <div class="text-center data-mono">2</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">141.57</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">9</span></td>
+                                    <td class="px-4 py-2 text-slate-600">中化地质矿山总局湖北地质勘查院</td>
+                                    <td class="px-4 py-2">
+                                        <div class="text-center data-mono">1</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">200.86</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2 last:rounded-r-lg"><span class="rank-badge">10</span></td>
+                                    <td class="px-4 py-2 text-slate-600">中国煤炭地质总局浙江煤炭地质局</td>
+                                    <td class="px-4 py-2">
+                                        <div class="text-center data-mono">1</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">1,556.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="glass-card-premium flex flex-col group/card">
+                    <div class="px-7 py-5 border-b border-indigo-500/5">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-900 tracking-[0.2em] uppercase">采购企业交易额top10
+                                </h4>
+                                <p class="text-[9px] text-slate-400 font-medium tracking-widest uppercase mt-0.5">
+                                    Enterprise Spend Leaderboard</p>
+                            </div>
+                            <div class="p-2 bg-amber-50 rounded-lg group-hover/card:bg-amber-100 transition-colors">
+                                <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto p-2">
+                        <table class="w-full text-left text-[11px] border-separate border-spacing-y-1 premium-table">
+                            <thead class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                                <tr>
+                                    <th class="px-4 py-2 first:rounded-l-lg">排名</th>
+                                    <th class="px-4 py-2">采购企业</th>
+                                    <th class="px-4 py-2 text-right">金额 (元)</th>
+                                    <th class="px-4 py-2 text-right last:rounded-r-lg">订单数</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-700">
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-3 first:rounded-l-lg"><span
+                                            class="rank-badge rank-top-1 bg-amber-500 text-white shadow-amber-200">1</span>
+                                    </td>
+                                    <td class="px-4 py-3 text-slate-900 font-bold truncate max-w-[170px]">
+                                        中化地质矿山总局江苏地质勘查院</td>
+                                    <td class="px-4 py-3 text-right">
+                                        <div class="data-mono font-bold text-amber-600">13,337.38</div>
+                                        <div class="progress-bar-bg">
+                                            <div class="progress-bar-fill bg-gradient-to-r from-amber-500 to-orange-400"
+                                                style="width: 100%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-right last:rounded-r-lg data-mono font-medium">14</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">2</span></td>
+                                    <td class="px-4 py-2 text-slate-600 truncate max-w-[170px]">中国煤炭地质总局一二九勘探队</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono font-bold text-slate-800">5,936.47</div>
+                                        <div class="progress-bar-bg">
+                                            <div class="progress-bar-fill bg-amber-400 opacity-60" style="width: 44%">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">5</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">3</span></td>
+                                    <td class="px-4 py-2 text-slate-600 truncate max-w-[170px]">中煤航测遥感集团航测工程分公司</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono font-bold text-slate-800">4,902.55</div>
+                                        <div class="progress-bar-bg">
+                                            <div class="progress-bar-fill bg-amber-400 opacity-50" style="width: 36%">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">2</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">4</span></td>
+                                    <td class="px-4 py-2 text-slate-600">北京大地高科地质勘查有限公司</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono font-bold text-slate-800">2,103.00</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">1</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">5</span></td>
+                                    <td class="px-4 py-2 text-slate-600">中煤地第二勘探局集团有限责任公司</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono">1,557.90</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">4</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">6</span></td>
+                                    <td class="px-4 py-2 text-slate-600">中国煤炭地质总局浙江煤炭地质局</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono">1,556.00</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">1</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">7</span></td>
+                                    <td class="px-4 py-2 text-slate-600">中能化创新投资集团有限公司</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono">1,085.62</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">1</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">8</span></td>
+                                    <td class="px-4 py-2 text-slate-600">新疆医药产业集团有限公司</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono">1,045.60</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">4</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">9</span></td>
+                                    <td class="px-4 py-2 text-slate-600">中国煤炭地质总局水文地质局</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono">336.65</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">2</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2 last:rounded-r-lg"><span class="rank-badge">10</span></td>
+                                    <td class="px-4 py-2 text-slate-600">中化地质矿山总局陕西地质勘查院</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono">283.01</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: Supplier Overview -->
+            <div class="glass-card-premium flex flex-col group/card">
+                <div class="px-7 py-5 border-b border-indigo-500/5 flex items-center justify-between">
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-900 tracking-[0.2em] uppercase">供应商汇总表</h4>
+                        <p class="text-[9px] text-slate-400 font-medium tracking-widest uppercase mt-0.5">Supplier
+                            Consolidated Analytics</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="px-2 py-1 bg-indigo-50 text-indigo-600 rounded text-[9px] font-bold"></span>
+                    </div>
+                </div>
+                <div class="overflow-x-auto p-4">
+                    <table class="w-full text-left text-[11px] border-separate border-spacing-y-1 premium-table">
+                        <thead class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                            <tr>
+                                <th class="px-3 py-2 first:rounded-l-lg">排名</th>
+                                <th class="px-3 py-2">供应商名称</th>
+                                <th class="px-3 py-2 text-center">订单</th>
+                                <th class="px-3 py-2 text-center">总额 (元)</th>
+                                <th class="px-3 py-2 text-center">商品数</th>
+                                <th class="px-3 py-2 last:rounded-r-lg">所属专区</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-700">
+                            <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                <td class="px-3 py-3 first:rounded-l-lg"><span class="rank-badge rank-top-1">1</span>
+                                </td>
+                                <td class="px-3 py-3 text-slate-900 font-bold">得力集团有限公司</td>
+                                <td class="px-3 py-3 text-center data-mono font-bold text-indigo-600">16</td>
+                                <td class="px-3 py-3 text-center data-mono font-bold">24,458.01</td>
+                                <td class="px-3 py-3 text-center data-mono">152</td>
+                                <td class="px-3 py-3 last:rounded-r-lg">
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="zone-tag">中国煤地</span>
+                                        <span class="zone-tag">新疆阳采</span>
+                                        <span class="zone-tag">大连阳采</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                <td class="px-3 py-2"><span class="rank-badge">2</span></td>
+                                <td class="px-3 py-2">深圳齐心集团股份有限公司</td>
+                                <td class="px-3 py-2 text-center data-mono">13</td>
+                                <td class="px-3 py-2 text-center data-mono">11,926.45</td>
+                                <td class="px-3 py-2 text-center data-mono">128</td>
+                                <td class="px-3 py-2">
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="zone-tag">中国煤地</span>
+                                        <span class="zone-tag">大连阳采</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                <td class="px-3 py-2"><span class="rank-badge">3</span></td>
+                                <td class="px-3 py-2">苏宁易购集团股份有限公司</td>
+                                <td class="px-3 py-2 text-center data-mono">12</td>
+                                <td class="px-3 py-2 text-center data-mono">10,180.36</td>
+                                <td class="px-3 py-2 text-center data-mono">168</td>
+                                <td class="px-3 py-2">
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="zone-tag">中国煤地</span>
+                                        <span class="zone-tag">新疆阳采</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                <td class="px-3 py-2"><span class="rank-badge">4</span></td>
+                                <td class="px-3 py-2">徐州鑫驰办公设备有限公司</td>
+                                <td class="px-3 py-2 text-center data-mono">1</td>
+                                <td class="px-3 py-2 text-center data-mono">6,870.00</td>
+                                <td class="px-3 py-2 text-center data-mono">30</td>
+                                <td class="px-3 py-2"><span class="zone-tag">中国煤地</span></td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                <td class="px-3 py-2"><span class="rank-badge">5</span></td>
+                                <td class="px-3 py-2">紫迈电子商务有限公司</td>
+                                <td class="px-3 py-2 text-center data-mono">12</td>
+                                <td class="px-3 py-2 text-center data-mono">2,902.57</td>
+                                <td class="px-3 py-2 text-center data-mono">380</td>
+                                <td class="px-3 py-2">
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="zone-tag">中国煤地</span>
+                                        <span class="zone-tag">新疆阳采</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                <td class="px-3 py-2"><span class="rank-badge">6</span></td>
+                                <td class="px-3 py-2">欧菲斯集团股份有限公司</td>
+                                <td class="px-3 py-2 text-center data-mono">15</td>
+                                <td class="px-3 py-2 text-center data-mono">2,697.31</td>
+                                <td class="px-3 py-2 text-center data-mono">161</td>
+                                <td class="px-3 py-2">
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="zone-tag">中国煤地</span>
+                                        <span class="zone-tag">新疆阳采</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                <td class="px-3 py-2"><span class="rank-badge">7</span></td>
+                                <td class="px-3 py-2">史泰博(上海)有限公司</td>
+                                <td class="px-3 py-2 text-center data-mono">7</td>
+                                <td class="px-3 py-2 text-center data-mono">1,515.20</td>
+                                <td class="px-3 py-2 text-center data-mono">35</td>
+                                <td class="px-3 py-2">
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="zone-tag">新疆阳采</span>
+                                        <span class="zone-tag">中国煤地</span>
+                                        <span class="zone-tag">邯郸优采</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                <td class="px-3 py-2"><span class="rank-badge">8</span></td>
+                                <td class="px-3 py-2">鑫方盛数智科技股份有限公司</td>
+                                <td class="px-3 py-2 text-center data-mono">5</td>
+                                <td class="px-3 py-2 text-center data-mono">1,384.14</td>
+                                <td class="px-3 py-2 text-center data-mono">129</td>
+                                <td class="px-3 py-2">
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="zone-tag">中国煤地</span>
+                                        <span class="zone-tag">新疆阳采</span>
+                                        <span class="zone-tag">大连阳采</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                <td class="px-3 py-2"><span class="rank-badge">9</span></td>
+                                <td class="px-3 py-2">震坤行工业超市（上海）有限公司</td>
+                                <td class="px-3 py-2 text-center data-mono">7</td>
+                                <td class="px-3 py-2 text-center data-mono">1,257.43</td>
+                                <td class="px-3 py-2 text-center data-mono">118</td>
+                                <td class="px-3 py-2">
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="zone-tag">中国煤地</span>
+                                        <span class="zone-tag">新疆阳采</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                <td class="px-3 py-2 last:rounded-r-lg"><span class="rank-badge">10</span></td>
+                                <td class="px-3 py-2">深圳市怡亚通供应链股份有限公司</td>
+                                <td class="px-3 py-2 text-center data-mono">2</td>
+                                <td class="px-3 py-2 text-center data-mono">1,152.00</td>
+                                <td class="px-3 py-2 text-center data-mono">2</td>
+                                <td class="px-3 py-2"><span class="zone-tag">中国煤地</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Row 3: Supplier Top 10s -->
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                <!-- Supplier Volume Ranking -->
+                <div class="glass-card-premium flex flex-col group/card">
+                    <div class="px-7 py-5 border-b border-indigo-500/5 items-center justify-between flex">
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-900 tracking-[0.2em] uppercase">供应商订单量top10</h4>
+                            <p class="text-[9px] text-slate-400 font-medium tracking-widest uppercase mt-0.5">Supplier
+                                Activity Leaderboard</p>
+                        </div>
+                        <div class="p-2 bg-indigo-50 rounded-lg group-hover/card:bg-indigo-100 transition-colors">
+                            <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto p-2">
+                        <table class="w-full text-left text-[11px] border-separate border-spacing-y-1 premium-table">
+                            <thead class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                                <tr>
+                                    <th class="px-4 py-2 first:rounded-l-lg">排名</th>
+                                    <th class="px-4 py-2">供应商名称</th>
+                                    <th class="px-4 py-2 text-center">订单数</th>
+                                    <th class="px-4 py-2 text-right last:rounded-r-lg">金额 (元)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-700">
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-3 first:rounded-l-lg"><span
+                                            class="rank-badge rank-top-1">1</span></td>
+                                    <td class="px-4 py-3 text-slate-900 font-bold">晨光文具股份有限公司</td>
+                                    <td class="px-4 py-3">
+                                        <div class="text-center data-mono font-bold text-indigo-600">13</div>
+                                        <div class="progress-bar-bg">
+                                            <div class="progress-bar-fill" style="width: 100%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-right last:rounded-r-lg data-mono">0.00</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">2</span></td>
+                                    <td class="px-4 py-2 text-slate-600">欧菲斯集团股份有限公司</td>
+                                    <td class="px-4 py-2">
+                                        <div class="text-center data-mono">10</div>
+                                        <div class="progress-bar-bg">
+                                            <div class="progress-bar-fill opacity-60" style="width: 77%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">2,001.89</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">3</span></td>
+                                    <td class="px-4 py-2 text-slate-600">深圳齐心集团股份有限公司</td>
+                                    <td class="px-4 py-2">
+                                        <div class="text-center data-mono">8</div>
+                                        <div class="progress-bar-bg">
+                                            <div class="progress-bar-fill opacity-60" style="width: 62%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">10,944.45</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">4</span></td>
+                                    <td class="px-4 py-2 text-slate-600">紫迈电子商务有限公司</td>
+                                    <td class="px-4 py-2">
+                                        <div class="text-center data-mono">7</div>
+                                        <div class="progress-bar-bg">
+                                            <div class="progress-bar-fill opacity-40" style="width: 54%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2 text-right data-mono">2,457.54</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">5</span></td>
+                                    <td class="px-4 py-2 text-slate-600">得力集团有限公司</td>
+                                    <td class="px-4 py-2 text-center data-mono">5</td>
+                                    <td class="px-4 py-2 text-right data-mono">5,955.30</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">6</span></td>
+                                    <td class="px-4 py-2 text-slate-600">苏宁易购集团股份有限公司</td>
+                                    <td class="px-4 py-2 text-center data-mono">4</td>
+                                    <td class="px-4 py-2 text-right data-mono">1,841.64</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">7</span></td>
+                                    <td class="px-4 py-2 text-slate-600">震坤行工业超市(上海)有限公司</td>
+                                    <td class="px-4 py-2 text-center data-mono">2</td>
+                                    <td class="px-4 py-2 text-right data-mono">456.84</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">8</span></td>
+                                    <td class="px-4 py-2 text-slate-600">史泰博(上海)有限公司</td>
+                                    <td class="px-4 py-2 text-center data-mono">2</td>
+                                    <td class="px-4 py-2 text-right data-mono">235.90</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">9</span></td>
+                                    <td class="px-4 py-2 text-slate-600">北京鸿昌一创文具礼品公司</td>
+                                    <td class="px-4 py-2 text-center data-mono">1</td>
+                                    <td class="px-4 py-2 text-right data-mono">12.50</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2 last:rounded-r-lg"><span class="rank-badge">10</span></td>
+                                    <td class="px-4 py-2 text-slate-600">咸亨国际科技股份有限公司</td>
+                                    <td class="px-4 py-2 text-center data-mono">1</td>
+                                    <td class="px-4 py-2 text-right data-mono">567.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Supplier Spend (Restored & Redesigned) -->
+                <div class="glass-card-premium flex flex-col group/card">
+                    <div class="px-7 py-5 border-b border-indigo-500/5 items-center justify-between flex">
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-900 tracking-[0.2em] uppercase">供应商交易额top10</h4>
+                            <p class="text-[9px] text-slate-400 font-medium tracking-widest uppercase mt-0.5">Supplier
+                                Revenue Leaderboard</p>
+                        </div>
+                        <div class="p-2 bg-amber-50 rounded-lg group-hover/card:bg-amber-100 transition-colors">
+                            <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 002-2">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto p-2">
+                        <table class="w-full text-left text-[11px] border-separate border-spacing-y-1 premium-table">
+                            <thead class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                                <tr>
+                                    <th class="px-4 py-2 first:rounded-l-lg">排名</th>
+                                    <th class="px-4 py-2">单位名称</th>
+                                    <th class="px-4 py-2 text-right">金额 (元)</th>
+                                    <th class="px-4 py-2 text-center last:rounded-r-lg">订单</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-700">
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-3 first:rounded-l-lg"><span
+                                            class="rank-badge rank-top-1 bg-amber-500 text-white shadow-amber-200">1</span>
+                                    </td>
+                                    <td class="px-4 py-3 text-slate-900 font-bold truncate max-w-[150px]">深圳齐心集团股份有限公司
+                                    </td>
+                                    <td class="px-4 py-3 text-right">
+                                        <div class="data-mono font-bold text-amber-600">10,944.45</div>
+                                        <div class="progress-bar-bg">
+                                            <div class="progress-bar-fill bg-amber-500" style="width: 100%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-center last:rounded-r-lg data-mono font-medium">8</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">2</span></td>
+                                    <td class="px-4 py-2 text-slate-600 truncate max-w-[150px]">徐州鑫驰办公设备有限公司</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono font-bold text-slate-800">6,870.00</div>
+                                        <div class="progress-bar-bg">
+                                            <div class="progress-bar-fill bg-amber-400 opacity-60" style="width: 62%">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2 text-center data-mono">1</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">3</span></td>
+                                    <td class="px-4 py-2 text-slate-600">得力集团有限公司</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono font-bold text-slate-800">5,955.30</div>
+                                        <div class="progress-bar-bg">
+                                            <div class="progress-bar-fill bg-amber-400 opacity-50" style="width: 54%">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2 text-center data-mono">5</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">4</span></td>
+                                    <td class="px-4 py-2 text-slate-600 truncate max-w-[150px]">紫迈电子商务有限公司</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono font-bold">2,457.54</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-center data-mono">7</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">5</span></td>
+                                    <td class="px-4 py-2 text-slate-600">欧菲斯集团股份有限公司</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono">2,001.89</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-center data-mono">10</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">6</span></td>
+                                    <td class="px-4 py-2 text-slate-600">苏宁易购集团股份有限公司</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono">1,841.64</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-center data-mono">4</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">7</span></td>
+                                    <td class="px-4 py-2 text-slate-600">深圳市怡亚通供应链</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono">1,132.00</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-center data-mono">1</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">8</span></td>
+                                    <td class="px-4 py-2 text-slate-600">咸亨国际科技股份有限公司</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono">567.00</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-center data-mono">1</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2"><span class="rank-badge">9</span></td>
+                                    <td class="px-4 py-2 text-slate-600">震坤行工业超市</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono">456.84</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-center data-mono">2</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-4 py-2 last:rounded-r-lg"><span class="rank-badge">10</span></td>
+                                    <td class="px-4 py-2 text-slate-600">浙江宏伟供应链集团</td>
+                                    <td class="px-4 py-2 text-right">
+                                        <div class="data-mono">417.44</div>
+                                    </td>
+                                    <td class="px-4 py-2 text-center data-mono">1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 4: Product Rankings -->
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                <div class="glass-card-premium flex flex-col group/card">
+                    <div class="px-7 py-5 border-b border-indigo-500/5 items-center justify-between flex">
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-900 tracking-[0.2em] uppercase">商品销售数量top10</h4>
+                            <p class="text-[9px] text-slate-400 font-medium tracking-widest uppercase mt-0.5">Top
+                                Products by Units Sold</p>
+                        </div>
+                        <div class="p-2 bg-indigo-50 rounded-lg group-hover/card:bg-indigo-100 transition-colors">
+                            <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto p-2">
+                        <table class="w-full text-left text-[11px] border-separate border-spacing-y-1 premium-table">
+                            <thead class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                                <tr>
+                                    <th class="px-3 py-2 first:rounded-l-lg">排名</th>
+                                    <th class="px-3 py-2">商品名称</th>
+                                    <th class="px-3 py-2 text-right last:rounded-r-lg">销量</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-700">
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-3 first:rounded-l-lg"><span
+                                            class="rank-badge rank-top-1">1</span></td>
+                                    <td class="px-3 py-3 leading-tight text-[10px] font-bold">怡宝 饮用 水纯净水350ml*24瓶整箱装
+                                    </td>
+                                    <td
+                                        class="px-3 py-3 text-right last:rounded-r-lg data-mono font-bold text-indigo-600">
+                                        50</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">2</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">得力 DELI 便签纸 (包) 50*15mm</td>
+                                    <td class="px-3 py-2 text-right data-mono font-bold text-indigo-600">50</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">3</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">晨鸣 ChenMing A4 70g 复印纸 白色</td>
+                                    <td class="px-3 py-2 text-right data-mono font-bold text-indigo-600">40</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">4</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">得力垃圾袋 9586 30个/卷 黑色</td>
+                                    <td class="px-3 py-2 text-right data-mono font-bold text-indigo-600">40</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">5</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">得力deli 回形针 0037 29mm (桶)</td>
+                                    <td class="px-3 py-2 text-right data-mono">35</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">6</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">APP 复印纸 星旗舰 A4/80g (箱)</td>
+                                    <td class="px-3 py-2 text-right data-mono">20</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">7</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">晨光 K35按动中性笔 12支/盒</td>
+                                    <td class="px-3 py-2 text-right data-mono">20</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">8</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">得力deli 长尾夹 8554 4# (中)</td>
+                                    <td class="px-3 py-2 text-right data-mono">20</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">9</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">晨光 特小号长尾夹/彩色 罐装</td>
+                                    <td class="px-3 py-2 text-right data-mono">20</td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2 last:rounded-r-lg"><span class="rank-badge">10</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">晨光 特大号长尾夹/彩色 盒装</td>
+                                    <td class="px-3 py-2 text-right data-mono">20</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="glass-card-premium flex flex-col group/card">
+                    <div class="px-7 py-5 border-b border-indigo-500/5 items-center justify-between flex">
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-900 tracking-[0.2em] uppercase">商品销售金额top10</h4>
+                            <p class="text-[9px] text-slate-400 font-medium tracking-widest uppercase mt-0.5">Top
+                                Products by Revenue</p>
+                        </div>
+                        <div class="p-2 bg-amber-50 rounded-lg group-hover/card:bg-amber-100 transition-colors">
+                            <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto p-2">
+                        <table class="w-full text-left text-[11px] border-separate border-spacing-y-1 premium-table">
+                            <thead class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                                <tr>
+                                    <th class="px-3 py-2 first:rounded-l-lg">排名</th>
+                                    <th class="px-3 py-2">商品名称</th>
+                                    <th class="px-3 py-2 text-right last:rounded-r-lg">成交额</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-700">
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-3 first:rounded-l-lg"><span
+                                            class="rank-badge rank-top-1 bg-amber-500 text-white shadow-amber-200">1</span>
+                                    </td>
+                                    <td class="px-3 py-3 leading-tight text-[10px] font-bold">APP 复印纸 星旗舰 A4/80g</td>
+                                    <td
+                                        class="px-3 py-3 text-right last:rounded-r-lg data-mono font-bold text-amber-600">
+                                        4,580.00</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">2</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">晨鸣 ChenMing A4 70g 复印纸 白色</td>
+                                    <td class="px-3 py-2 text-right data-mono font-bold text-amber-600">4,320.00</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">3</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">联想 CM7120W 彩色激光多功能一体机</td>
+                                    <td class="px-3 py-2 text-right data-mono font-bold text-amber-600">2,801.55</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">4</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">APP 复印纸 星旗舰 A3/80g</td>
+                                    <td class="px-3 py-2 text-right data-mono">2,290.00</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">5</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">联想/LENOVO 16T 7.2K SATA 机械硬盘</td>
+                                    <td class="px-3 py-2 text-right data-mono">2,101.00</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">6</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">闪迪 SANDISK E61 移动固态硬盘 2TB</td>
+                                    <td class="px-3 py-2 text-right data-mono">1,956.00</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">7</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">雷克沙NM610PRO系列固态硬盘1T</td>
+                                    <td class="px-3 py-2 text-right data-mono">1,556.00</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">8</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">天章(TANGO) P65425 a4浅绿色打印纸</td>
+                                    <td class="px-3 py-2 text-right data-mono">1,363.25</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2"><span class="rank-badge">9</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">怡宝 饮用 水纯净水350ml*24瓶整箱装</td>
+                                    <td class="px-3 py-2 text-right data-mono">1,350.00</td>
+                                </tr>
+                                <tr class="hover:bg-amber-50/40 transition-all cursor-pointer">
+                                    <td class="px-3 py-2 last:rounded-r-lg"><span class="rank-badge">10</span></td>
+                                    <td class="px-3 py-2 leading-tight text-[10px]">歌派 6820 财务装订机 (台)</td>
+                                    <td class="px-3 py-2 text-right data-mono">1,132.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="pt-8 pb-12 text-center">
+        <p class="text-[10px] font-black text-slate-400/60 uppercase tracking-[0.4em]">Sunshine Excellence
+            Enterprise Analytics © 2026</p>
+    </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
