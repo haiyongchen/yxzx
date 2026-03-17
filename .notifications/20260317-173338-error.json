@@ -1,0 +1,25 @@
+﻿{
+    "msg_type":  "interactive",
+    "card":  {
+                 "config":  {
+                                "enable_forward":  true,
+                                "wide_screen_mode":  true
+                            },
+                 "elements":  [
+                                  {
+                                      "text":  {
+                                                   "content":  "**Git Auto Commit Failed**\n\n**Workspace**: D:\\openclaw-workspace\n\n**Error Message**:\n`\n无法将“Join-String”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。\n`\n\n**Failed Time**: 2026-03-17 17:33:37",
+                                                   "tag":  "lark_md"
+                                               },
+                                      "tag":  "div"
+                                  }
+                              ],
+                 "header":  {
+                                "template":  "red",
+                                "title":  {
+                                              "content":  "Git Auto Commit - Failed",
+                                              "tag":  "plain_text"
+                                          }
+                            }
+             }
+}

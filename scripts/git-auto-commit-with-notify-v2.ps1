@@ -82,6 +82,15 @@ function Send-FeishuNotification {
     }
 }
 
+# Helper function to join strings (for older PowerShell versions)
+function Join-Strings {
+    param(
+        [string[]]$Strings,
+        [string]$Separator = "`n"
+    )
+    return ($Strings -join $Separator)
+}
+
 # Main execution
 Write-Log "=========================================="
 Write-Log "Git auto commit task started (v2)"
@@ -110,9 +119,10 @@ try {
 
     # Show changed files
     Write-Log "Detected changes:"
-    $fileList = $status | ForEach-Object {
+    $fileList = @()
+    $status | ForEach-Object {
         Write-Log "  $_"
-        "- $_"
+        $fileList += "- $_"
     }
 
     # Add all changes
@@ -127,13 +137,22 @@ try {
     # Get commit hash
     $commitHash = git rev-parse --short HEAD
 
-    # Push
-    Write-Log "Pushing to remote..."
-    $pushOutput = git push 2>&1
-    $pushOutput | ForEach-Object { Write-Log "  $_" }
+    # Check if remote exists
+    $remotes = git remote
+    if ($remotes) {
+        # Push
+        Write-Log "Pushing to remote..."
+        git push 2>&1 | ForEach-Object { Write-Log "  $_" }
+        $pushStatus = "Pushed to remote"
+    } else {
+        Write-Log "No remote configured, skipping push"
+        $pushStatus = "No remote configured"
+    }
 
     $endTime = Get-Date
     $duration = $endTime - $startTime
+
+    $fileListStr = Join-Strings -Strings $fileList -Separator "`n"
 
     $successContent = @"
 **Git Auto Commit Success**
@@ -142,6 +161,7 @@ try {
 - Commit hash: $commitHash
 - Commit message: $CommitMessage
 - Changed files: $($fileList.Count)
+- Push status: $pushStatus
 
 **Execution Time**
 - Start: $($startTime.ToString("yyyy-MM-dd HH:mm:ss"))
@@ -149,7 +169,7 @@ try {
 - Duration: $($duration.TotalSeconds) seconds
 
 **Changed Files**
-$($fileList | Join-String -Separator "`n")
+$fileListStr
 "@
 
     Write-Log "Commit successful: $commitHash"
