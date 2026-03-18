@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "skills": {
+    "amap-jsapi-skill": {
+      "version": "1.0.3",
+      "installedAt": 1773743005932
+    },
+    "amap-lbs-skill": {
+      "version": "1.0.0",
+      "installedAt": 1773743012764
+    },
+    "tavily": {
+      "version": "1.0.0",
+      "installedAt": 1773743921840
+    },
+    "openclaw-reminder": {
+      "version": "1.0.5",
+      "installedAt": 1773744639212
+    },
+    "github": {
+      "version": "1.0.0",
+      "installedAt": 1773745170231
+    }
+  }
+}

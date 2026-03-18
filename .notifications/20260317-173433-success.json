@@ -1,0 +1,25 @@
+﻿{
+    "msg_type":  "interactive",
+    "card":  {
+                 "config":  {
+                                "enable_forward":  true,
+                                "wide_screen_mode":  true
+                            },
+                 "elements":  [
+                                  {
+                                      "text":  {
+                                                   "content":  "**Git Auto Commit Success**\n\n**Commit Info**\n- Commit hash: 6579eff\n- Commit message: Auto commit daily backup\n- Changed files: 4\n- Push status: No remote configured\n\n**Execution Time**\n- Start: 2026-03-17 17:34:32\n- End: 2026-03-17 17:34:33\n- Duration: 1.0916728 seconds\n\n**Changed Files**\n-  M logs/git-auto-commit-20260317-173336.log\n-  M scripts/git-auto-commit-with-notify-v2.ps1\n- ?? .notifications/\n- ?? logs/git-auto-commit-20260317-173432.log",
+                                                   "tag":  "lark_md"
+                                               },
+                                      "tag":  "div"
+                                  }
+                              ],
+                 "header":  {
+                                "template":  "green",
+                                "title":  {
+                                              "content":  "Git Auto Commit - Success",
+                                              "tag":  "plain_text"
+                                          }
+                            }
+             }
+}
