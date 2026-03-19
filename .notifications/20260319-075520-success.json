@@ -1,0 +1,25 @@
+﻿{
+    "msg_type":  "interactive",
+    "card":  {
+                 "config":  {
+                                "enable_forward":  true,
+                                "wide_screen_mode":  true
+                            },
+                 "elements":  [
+                                  {
+                                      "text":  {
+                                                   "content":  "**Git Auto Commit Success**\n\n**Commit Info**\n- Commit hash: 78226a9\n- Commit message: Auto commit daily backup\n- Changed files: 11\n- Push status: No remote configured\n\n**Execution Time**\n- Start: 2026-03-19 07:55:13\n- End: 2026-03-19 07:55:20\n- Duration: 7.1013346 seconds\n\n**Changed Files**\n-  M logs/git-auto-commit-20260317-173432.log\n- ?? .clawhub/\n- ?? .notifications/20260317-173433-success.json\n- ?? logs/git-auto-commit-20260319-075513.log\n- ?? skills/amap-jsapi-skill/\n- ?? skills/amap-lbs-skill/\n- ?? skills/github/\n- ?? skills/openclaw-reminder/\n- ?? skills/tavily/\n- ?? \"\\344\\270\\223\\345\\214\\272\\344\\277\\241\\346\\201\\257\\346\\261\\207\\346\\200\\273\\350\\241\\250_\\346\\214\\211\\347\\234\\201\\344\\273\\275\\345\\210\\206\\347\\261\\273.xlsx\"\n- ?? \"\\344\\270\\223\\345\\214\\272\\344\\277\\241\\346\\201\\257\\346\\261\\207\\346\\200\\273\\350\\241\\250_\\347\\234\\201\\344\\273\\275\\345\\210\\206\\347\\261\\273.xlsx\"",
+                                                   "tag":  "lark_md"
+                                               },
+                                      "tag":  "div"
+                                  }
+                              ],
+                 "header":  {
+                                "template":  "green",
+                                "title":  {
+                                              "content":  "Git Auto Commit - Success",
+                                              "tag":  "plain_text"
+                                          }
+                            }
+             }
+}
