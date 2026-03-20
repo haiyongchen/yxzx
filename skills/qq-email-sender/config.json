@@ -1,0 +1,7 @@
+{
+  "smtp_server": "smtp.qq.com",
+  "smtp_port": 465,
+  "sender_email": "631115784@qq.com",
+  "sender_password": "jmxrfcsmhxzabfec",
+  "receiver_email": "631115784@qq.com"
+}
