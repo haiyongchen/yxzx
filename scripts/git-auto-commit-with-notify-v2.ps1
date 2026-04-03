@@ -7,7 +7,7 @@
 #>
 
 param(
-    [string]$WorkspacePath = "D:\openclaw-workspace",
+    [string]$WorkspacePath = "D:\work\运营中心\yxzx",
     [string]$CommitMessage = "Auto commit daily backup",
     [string]$FeishuWebhook = "https://open.feishu.cn/open-apis/bot/v2/hook/dbd0d203-ba15-40ec-adfe-2311a8ba0f8c"
 )

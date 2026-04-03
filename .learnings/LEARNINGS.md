@@ -1,116 +1,97 @@
-# Learnings Log
+# Learnings
 
-记录纠正、知识差距和最佳实践。
+## [LRN-20260331-001] correction
 
----
-
-## [LRN-20260313-001] tool_usage
-
-**Logged**: 2026-03-13T14:57:00+08:00
+**Logged**: 2026-03-31T13:37:00+08:00
 **Priority**: high
-**Status**: pending
-**Area**: tools
+**Status**: resolved
+**Area**: data_analysis
 
 ### Summary
-访问有反爬机制的网站时，应该使用 Playwright 浏览器而不是 requests/curl
+用户指出报告不完整，缺少核心分析内容。问题在于：
+1. 生成的报告只有标题和基本指标，缺少详细的数据分析
+2. 没有包含TOP10收益专区、TOP10成本专区等关键分析表格
+3. 缺少数据洞察和建议措施的具体内容
+4. 用户明确要求"将图表等内容添加进去"，但报告生成不完整
 
 ### Details
-- 什么值得买 (smzdm.com) 有反爬机制，curl 和 requests 无法获取内容
-- 用户 Chrome 安装了 Relay 扩展，可以用 Playwright 打开
-- 应该优先使用浏览器工具访问网页内容
+任务要求：基于昨天的报告，筛选合同编号以C开头的数据，按专区维度生成完整报告，包含图表。
+
+错误表现：
+- 第一次生成的报告只有1页，包含简单的指标表格
+- 缺少：各省份分布分析、TOP10收益/成本专区表格、数据洞察、重点工作规划等
+- 用户反馈"报告不完整，啥都没分析"
+
+正确做法：
+- 应该生成完整的报告结构：执行摘要、核心数据总览（多表格）、数据分析与洞察、重点工作规划
+- 每个部分都要包含详细的数据表格和分析结论
+- 确保所有用户要求的分析维度都包含在报告中
 
 ### Suggested Action
-1. 访问网页优先使用 Playwright
-2. 记录用户已安装的浏览器扩展
-3. 在 TOOLS.md 中记录可用工具
+1. 在生成报告前，先明确报告的结构和各部分内容
+2. 使用Python-docx完整构建报告，确保所有章节都有实质内容
+3. 添加多个数据表格：省份分布、TOP10收益、TOP10成本、高风险专区清单
+4. 每个表格后添加分析结论和建议措施
+5. 生成报告后验证内容完整性
 
 ### Metadata
 - Source: user_feedback
-- Tags: playwright, browser, anti-scraping
-- Pattern-Key: browser.over_curl
+- Related Files: generate_full_report.py
+- Tags: report_generation, data_analysis, completeness
+- Pattern-Key: report.completeness_check
+- Recurrence-Count: 1
+- First-Seen: 2026-03-31
+- Last-Seen: 2026-03-31
+
+### Resolution
+- **Resolved**: 2026-03-31T14:00:00+08:00
+- **Notes**: 已重新生成完整报告，包含所有必要章节和数据分析表格
 
 ---
 
-## [LRN-20260313-002] capability_boundary
+## [LRN-20260331-002] correction
 
-**Logged**: 2026-03-13T15:08:00+08:00
-**Priority**: critical
-**Status**: pending
-**Area**: capabilities
-
-### Summary
-无法自动处理验证码（拼图、滑块等），需要用户协助
-
-### Details
-- 即使使用 Playwright 打开浏览器，也无法自动完成拼图验证
-- 没有图像识别/OCR/自动化验证的能力
-- 这是能力边界，不是工具问题
-- 用户期望我能自己处理，但实际做不到
-
-### Suggested Action
-1. 遇到验证码时明确告知用户需要协助
-2. 不要长时间等待（60 秒太长）
-3. 优先请用户提供内容（复制粘贴或口述）
-4. 在 TOOLS.md 中明确记录能力边界
-
-### Metadata
-- Source: user_feedback
-- Tags: captcha, limitation, boundary
-- Pattern-Key: captcha.manual_required
-
----
-
-## [LRN-20260313-003] skill_dependency
-
-**Logged**: 2026-03-13T16:50:00+08:00
-**Priority**: medium
-**Status**: pending
-**Area**: skills
-
-### Summary
-summarize 技能需要 macOS 的 Homebrew 安装 CLI，Windows 无法使用
-
-### Details
-- 从 GitHub 克隆了 clawdis 仓库的 summarize 技能
-- 技能已安装到 OpenClaw
-- 但依赖的 summarize CLI 只支持 macOS (brew install steipete/tap/summarize)
-- Windows 没有对应的安装包
-
-### Suggested Action
-1. 在 Windows 上标记此技能为不可用
-2. 寻找替代方案（如在线摘要服务）
-3. 或用 Playwright + LLM 实现类似功能
-
-### Metadata
-- Source: skill_install
-- Tags: summarize, cli, macos-only, windows-limitation
-- Pattern-Key: cli.platform_specific
-
----
-
-## [LRN-20260313-004] config_change
-
-**Logged**: 2026-03-13T17:20:00+08:00
+**Logged**: 2026-03-31T11:29:00+08:00
 **Priority**: high
-**Status**: pending
-**Area**: workflow
+**Status**: resolved
+**Area**: data_analysis
 
 ### Summary
-修改配置文件后不应自动重启网关，应先询问用户
+用户指出"专区总数怎么可能只有10个"。问题在于：
+1. 错误地将昨天的报告数据（按省份汇总的10个省份）当作了专区数量
+2. 没有正确读取Excel文件的所有Sheet
+3. 实际上合同编号以C开头的专区有110个，不是10个
 
 ### Details
-- 添加 Kimi 模型配置后，自动执行了 gateway restart
-- 用户并没有要求重启
-- 这是过度操作，可能中断正在进行的工作
+任务要求：筛选合同编号以C开头的数据，按专区维度分析。
+
+错误表现：
+- 只读取了Excel的第一个Sheet，只有1行数据
+- 误以为昨天的报告中10个省份=10个专区
+- 生成的报告标题写"10个专区"
+
+正确做法：
+- 应该读取Excel的所有Sheet（每个省份一个Sheet）
+- 合并所有Sheet的数据后再筛选
+- 实际数据：110个专区，覆盖10个省份
 
 ### Suggested Action
-1. 修改配置后告知用户
-2. 询问是否需要重启
-3. 等待用户确认再执行
+1. 读取Excel时检查是否包含多个Sheet
+2. 使用pd.read_excel(sheet_name=None)读取所有Sheet
+3. 合并所有Sheet数据后再进行筛选和分析
+4. 在报告中明确标注"110个专区"而非"10个"
 
 ### Metadata
 - Source: user_feedback
-- Tags: config, restart, workflow
-- Pattern-Key: config.ask_before_restart
+- Related Files: 专区信息汇总表_中原华北.xlsx
+- Tags: data_reading, excel, sheet_handling
+- Pattern-Key: excel.multi_sheet_reading
+- Recurrence-Count: 1
+- First-Seen: 2026-03-31
+- Last-Seen: 2026-03-31
+
+### Resolution
+- **Resolved**: 2026-03-31T12:00:00+08:00
+- **Notes**: 已正确读取所有Sheet，筛选出110个专区，重新生成报告
 
 ---

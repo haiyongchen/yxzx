@@ -1,0 +1,70 @@
+[
+    {
+        "domain": "dui.epoint.com.cn",
+        "expirationDate": 1774340446.534465,
+        "hostOnly": true,
+        "httpOnly": false,
+        "name": "access_token",
+        "path": "/transferplatform",
+        "sameSite": "unspecified",
+        "secure": false,
+        "session": false,
+        "storeId": "0",
+        "value": "3a4a7271cc271906a10bd22f846f55a5",
+        "id": 1
+    },
+    {
+        "domain": "dui.epoint.com.cn",
+        "expirationDate": 1774340446.534525,
+        "hostOnly": true,
+        "httpOnly": false,
+        "name": "access_token_expiresin",
+        "path": "/transferplatform",
+        "sameSite": "unspecified",
+        "secure": false,
+        "session": false,
+        "storeId": "0",
+        "value": "86400",
+        "id": 2
+    },
+    {
+        "domain": "dui.epoint.com.cn",
+        "hostOnly": true,
+        "httpOnly": false,
+        "name": "epoint_local",
+        "path": "/",
+        "sameSite": "unspecified",
+        "secure": false,
+        "session": true,
+        "storeId": "0",
+        "value": "zh_CN",
+        "id": 3
+    },
+    {
+        "domain": "dui.epoint.com.cn",
+        "expirationDate": 1808814046.534574,
+        "hostOnly": true,
+        "httpOnly": false,
+        "name": "refresh_token",
+        "path": "/transferplatform",
+        "sameSite": "unspecified",
+        "secure": false,
+        "session": false,
+        "storeId": "0",
+        "value": "2ac4424eaa42006098f68629d373cb3d",
+        "id": 4
+    },
+    {
+        "domain": "dui.epoint.com.cn",
+        "hostOnly": true,
+        "httpOnly": true,
+        "name": "sid",
+        "path": "/transferplatform/",
+        "sameSite": "unspecified",
+        "secure": false,
+        "session": true,
+        "storeId": "0",
+        "value": "3a4a7271cc271906a10bd22f846f55a5",
+        "id": 5
+    }
+]
