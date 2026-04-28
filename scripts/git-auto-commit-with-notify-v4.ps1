@@ -7,7 +7,7 @@
 #>
 
 param(
-    [string]$WorkspacePath = "D:\work\运营中心\yxzx",
+    [string]$WorkspacePath = "D:\openclaw-workspace",
     [string]$CommitMessage = "Auto commit daily backup",
     [string]$EmailScriptPath = "D:\openclaw-workspace\skills\qq-email-sender\scripts\send_email.py",
     [string]$FeishuUserId = "ou_a2ec1244bbefe1fc19ace7d85718ea08"
@@ -113,17 +113,33 @@ try {
     $commitHash = git rev-parse --short HEAD
     Write-Log "Commit hash: $commitHash"
 
-    # Push to remote
+    # Push to remote (use SSH to avoid HTTPS proxy issues)
     Write-Log "Pushing to remote..."
-    $pushOutput = git push origin main 2>&1
+    
+    # Update yxzx submodule remote to SSH
+    if (Test-Path "$WorkspacePath\yxzx\.git") {
+        $yxzxConfig = "$WorkspacePath\yxzx\.git\config"
+        if (Test-Path $yxzxConfig) {
+            (Get-Content $yxzxConfig) -replace 'https://github.com/', 'git@github.com:' | Set-Content $yxzxConfig
+        }
+    }
+    
+    # Temporarily disable URL rewrite and use SSH
+    git config --global --unset url.https://github.com/.insteadof 2>$null
+    git remote set-url origin git@github.com:haiyongchen/yxzx.git
+    
+    $pushOutput = git push origin master 2>&1
     $pushOutput | ForEach-Object { Write-Log "  $_" }
+    
+    # Restore global config
+    git config --global --add url.https://github.com/.insteadof git@github.com: 2>$null
     
     # Check push result
     if ($LASTEXITCODE -ne 0) {
         throw "Git push failed with exit code $LASTEXITCODE"
     }
     
-    $pushStatus = "Successfully pushed to https://github.com/haiyongchen/yxzx"
+    $pushStatus = "Successfully pushed to git@github.com:haiyongchen/yxzx.git"
     Write-Log $pushStatus
 
     $endTime = Get-Date
