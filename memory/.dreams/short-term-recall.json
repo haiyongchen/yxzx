@@ -1,0 +1,363 @@
+{
+  "version": 1,
+  "updatedAt": "2026-04-28T00:10:46.585Z",
+  "entries": {
+    "memory:memory/2026-04-19.md:32:54": {
+      "key": "memory:memory/2026-04-19.md:32:54",
+      "path": "memory/2026-04-19.md",
+      "startLine": 32,
+      "endLine": 54,
+      "source": "memory",
+      "snippet": "2. 所有邮件统一入口：`https://oa.epoint.com.cn/OA9/oa9/mail/mailframe` 3. 飞书 API 需要 App ID 和 App Secret 获取 Token 4. 飞书表格使用 Sheets API v2 ### 凭证配置 - 腾讯文档 Token: `e23255dcdf51491cb208ecc9cc341e21` - 飞书 App ID: `cli_a92024d097381cc5` - 飞书 App Secret: `bccDjxYuqOpx08k7MwcYxfYRMUQJMYWM` - OA Cookie 目录：`D:\\work\\运营中心\\yxzx\\新点 e 交易相关材料\\日常数据运维工具\\OAuto\\oa_user_data` ### 本周邮件分析结果（2026-04-12 至 2026-04-19） - 总邮件数：15 封 - 分类：电子商城 5 封、招投标 6 封、系统通知 3 封、工作汇报 1 封 - 优先级：⭐⭐⭐ 6 封、⭐⭐ 7 封、⭐ 2 封 ### 重点邮件 1. 阳光优采上量问题（6 大问题 +5 项建议） 2. 武汉光谷专区开设（五五分成协议） 3. 新疆平台推广（3 家国企入企讲座） 4. 中新建技术交流（下周二 10:30） 5. Q1 季报 6. 新疆立项协调",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-20T03:50:33.640Z",
+      "lastRecalledAt": "2026-04-20T03:50:33.640Z",
+      "queryHashes": [
+        "a71c783b2334"
+      ],
+      "recallDays": [
+        "2026-04-20"
+      ],
+      "conceptTags": [
+        "cli-a92024d097381cc5",
+        "oa-user-data",
+        "所有",
+        "邮件",
+        "统一",
+        "入口",
+        "https",
+        "oa.epoint.com.cn"
+      ]
+    },
+    "memory:memory/2026-04-19.md:1:39": {
+      "key": "memory:memory/2026-04-19.md:1:39",
+      "path": "memory/2026-04-19.md",
+      "startLine": 1,
+      "endLine": 39,
+      "source": "memory",
+      "snippet": "## OA 邮件分析技能开发 ✅ 已沉淀 ### 技能位置 - `skills/oa-mail-analyzer/SKILL.md` - 技能文档 ✅ - `skills/oa-mail-analyzer/scripts/analyzer_v5.py` - 主脚本 - `skills/oa-mail-analyzer/` - 技能目录 ### 功能 1. 自动登录 OA 系统（Cookie 复用，无需每次扫码） 2. 获取指定天数内的邮件列表（默认 7 天） 3. 逐封阅读邮件正文内容 4. 智能分类：电子商城、招投标、系统通知、工作汇报、培训学习 5. 优先级标注：⭐⭐⭐（紧急）、⭐⭐（重要）、⭐（一般） 6. 生成飞书表格和文档 ### 使用方法 ```bash python D:\\openclaw-workspace\\skills\\oa-mail-analyzer\\scripts\\analyzer_v5.py ``` ### 配置参数 - `DAYS_RANGE = 7` - 分析天数 - `MAX_MAILS_TO_READ = 15` - 最多阅读邮件数 ### 输出 - 飞书表格：https://www.feishu.cn/sheets/SO2Xs2vlkh4XKNt0VfOclqWYn6g - 飞书文档：https://www.feishu.cn/docx/EMbKdBL8NoPX7xxmtDbcmdQMnRe - 本地 JSON：`D:\\openclaw-workspace\\oa_mails_full.json` ### 技术要点 1. OA 系统使",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-20T03:50:33.640Z",
+      "lastRecalledAt": "2026-04-20T03:50:33.640Z",
+      "queryHashes": [
+        "a71c783b2334"
+      ],
+      "recallDays": [
+        "2026-04-20"
+      ],
+      "conceptTags": [
+        "skills/oa-mail-analyzer/skill.md",
+        "skills/oa-mail-analyzer",
+        "openclaw-workspace",
+        "oa-mail-analyzer",
+        "analyzer-v5.py",
+        "days-range",
+        "max-mails-to-read",
+        "oa-mails-full.json"
+      ]
+    },
+    "memory:memory/2026-03-12.md:34:67": {
+      "key": "memory:memory/2026-03-12.md:34:67",
+      "path": "memory/2026-03-12.md",
+      "startLine": 34,
+      "endLine": 67,
+      "source": "memory",
+      "snippet": "|------|--------|--------|------|------| | 华北区 | 交易呼和浩特分公司 | 沈磊 | 16 | - | | 华北区 | 交易沈阳分公司 | 赵丹 | 10 | 3 | | 华北区 | 数字采购沈阳分公司 | 朱鑫权 | - | - | | 华北区 | 交易长春分公司 | 孙方南 | 1 | 1 | | 华北区 | 交付服务部 | 吴宪 | - | - | | 华中区 | 石家庄分公司 | 袁沛 | 6 | 3 | | 华中区 | 交易武汉分公司 | 彭岱 | 55 | 10 | | 华中区 | 交易郑州分公司 | 陈良 | 49 | 1 | | 华中区 | 交易交付服务部 | 刘清佳 | - | - | | 西北区 | 交易乌鲁木齐分公司 | 王月明 | 16 | 8 | | 政务华东区 | 交易北京分公司 | 朱棒棒 | 5 | 2 | | 政务华东区 | 交付服务部 | 陈行行 | - | - | | 交易华东区 | 交易济南分公司 | 冯超 | 37 | 3 | **总计**: 195 个专区，31 个上量 **腾讯文档**: - 文档 1: https://docs.qq.com/sheet/DTFdkY3NqamJJVEJl?tab=1sweh3 - 文档 2: https://docs.qq.com/sheet/DQnZoWXpYQU5HVEpz?tab=BB08J2 **输出文件**: `D:/openclaw-workspace/output/陈海勇负责专区信息_最终版.xlsx` --- ## ⚠️ 技术",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-20T03:50:33.640Z",
+      "lastRecalledAt": "2026-04-27T09:52:10.216Z",
+      "queryHashes": [
+        "a71c783b2334",
+        "bad4b8915bd9"
+      ],
+      "recallDays": [
+        "2026-04-20",
+        "2026-04-27"
+      ],
+      "conceptTags": [
+        "华北",
+        "交易",
+        "呼和浩特",
+        "公司",
+        "沈阳",
+        "数字",
+        "采购",
+        "长春"
+      ]
+    },
+    "memory:memory/2026-04-18.md:1:35": {
+      "key": "memory:memory/2026-04-18.md:1:35",
+      "path": "memory/2026-04-18.md",
+      "startLine": 1,
+      "endLine": 35,
+      "source": "memory",
+      "snippet": "# 2026-04-18 Session Memory ## 📅 每日概况 **日期**: 2026-04-18（周六） **会话活动**: 无用户会话 **系统状态**: 正常运行，等待用户活动 --- ## 🔍 Skill Evolution 回顾 **回顾时间**: 22:00 **今日复杂任务数**: 0 **已沉淀为 Skill**: 0 **记录为候选**: 0 **暂不沉淀**: 0 ### 回顾结果 今日无用户活动，无新任务需要评估。 昨日（2026-04-17）任务回顾： - **Hermes Agent 安装与配置**: 单次配置任务，不具备高度可复用性 - **OA 技能尝试**: 任务失败，无成功流程可沉淀 - **模型切换**: 简单操作，不符合≥5 步标准 --- ## 📝 备注 - 系统处于空闲状态 - 无新增 Skill 候选 - 明日继续监控用户活动",
+      "recallCount": 4,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 4,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-27T00:03:26.963Z",
+      "lastRecalledAt": "2026-04-28T00:10:46.585Z",
+      "queryHashes": [
+        "54aca85909d6",
+        "e782637e94f2",
+        "c5dd407ecd85",
+        "70f7446ca28d"
+      ],
+      "recallDays": [
+        "2026-04-27",
+        "2026-04-28"
+      ],
+      "conceptTags": [
+        "每日",
+        "概况",
+        "日期",
+        "周六",
+        "会话",
+        "活动",
+        "用户",
+        "系统"
+      ]
+    },
+    "memory:memory/2026-03-13.md:108:155": {
+      "key": "memory:memory/2026-03-13.md:108:155",
+      "path": "memory/2026-03-13.md",
+      "startLine": 108,
+      "endLine": 155,
+      "source": "memory",
+      "snippet": "- **影响**: Windows 上无法使用 - **解决**: 寻找替代方案或使用在线服务 ### 4. 配置变更流程 - **教训**: 修改配置后不应自动重启网关 - **改进**: 先询问用户确认 --- ## 📁 文件操作 ### 清理 output 文件夹 - **时间**: 2026-03-13 16:48 - **操作**: 删除了所有测试生成的临时文件 - **保留**: 技能目录和配置文件 ### 创建的学习记录文件 - `.learnings/LEARNINGS.md` - 学习日志 - `.learnings/ERRORS.md` - 错误日志 - `.learnings/FEATURE_REQUESTS.md` - 功能请求 --- ## 💡 重要配置变更 ### 飞书配置更新 - **groupPolicy**: 从 `allowlist` 改为 `open` - **原因**: 允许接收所有群消息 - **重启**: 2026-03-13 08:25 ### 对话压缩配置 - **之前**: `safeguard` - **现在**: `default` - **效果**: 更积极的对话压缩，提升响应速度 --- ## 📈 统计数据 - **技能总数**: 6 个就绪，1 个缺失依赖 - **模型总数**: 6 个（已配置） - **定时任务**: 5 个 - **学习记录**: 4 条 --- *记录时间: 2026-03-13 17:37*",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-27T00:03:26.963Z",
+      "lastRecalledAt": "2026-04-27T00:05:04.485Z",
+      "queryHashes": [
+        "54aca85909d6",
+        "e782637e94f2"
+      ],
+      "recallDays": [
+        "2026-04-27"
+      ],
+      "conceptTags": [
+        "网关",
+        "learnings/learnings.md",
+        "learnings/errors.md",
+        "learnings/feature-requests.md",
+        "影响",
+        "windows",
+        "无法",
+        "使用"
+      ]
+    },
+    "memory:memory/2026-03-27.md:1:29": {
+      "key": "memory:memory/2026-03-27.md:1:29",
+      "path": "memory/2026-03-27.md",
+      "startLine": 1,
+      "endLine": 29,
+      "source": "memory",
+      "snippet": "# 2026-03-27 任务记录 ## 任务 1：成本统计与预警分析 **时间**: 2026-03-27 17:56 **状态**: ✅ 已完成 ### 任务内容 1. 根据合同编号匹配任务使用表，统计人工成本 2. 计算总人工成本（专区成本）和上线前人工成本 3. 根据监控指标计算专区预警等级 ### 处理文件 - **源文件**: D:\\work\\运营中心\\yxzx\\新点e交易相关材料\\日常数据运维工具\\e交易数据监控指标V2.0.xlsx - **数据文件**: D:\\work\\运营中心\\yxzx\\新点e交易相关材料\\日常数据运维工具\\专区信息汇总表_按省份分类.xlsx - **任务使用表**: D:\\work\\运营中心\\yxzx\\新点e交易相关材料\\日常数据运维工具\\同步数据文件\\任务使用表.xls ### 处理结果 - 总专区数: 147 个 - 正常: 74 个 - 长期无收益预警(红色) + 成熟期收益不达标(橙色): 44 个 - 运营成本过高(红色): 10 个 - 运营成本过高(红色) + 成熟期收益不达标(橙色): 9 个 - 成熟期收益不达标(橙色): 6 个 - 成长期无收益(黄色) + 成长期收益低效(橙色): 3 个 - 成长期无收益(黄色): 1 个 ### 预警规则 - 🔴 **红色**: 长期无收益预警、运营成本过高 → 需重点关注",
+      "recallCount": 5,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 5,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-27T00:03:26.963Z",
+      "lastRecalledAt": "2026-04-28T00:10:46.585Z",
+      "queryHashes": [
+        "54aca85909d6",
+        "e782637e94f2",
+        "2030338e5699",
+        "c5dd407ecd85",
+        "70f7446ca28d"
+      ],
+      "recallDays": [
+        "2026-04-27",
+        "2026-04-28"
+      ],
+      "conceptTags": [
+        "e交易数据监控指标v2.0.xlsx",
+        "专区信息汇总表-按省份分类.xlsx",
+        "任务使用表.xls",
+        "任务",
+        "记录",
+        "成本",
+        "统计",
+        "预警"
+      ]
+    },
+    "memory:memory/2026-04-20.md:17:39": {
+      "key": "memory:memory/2026-04-20.md:17:39",
+      "path": "memory/2026-04-20.md",
+      "startLine": 17,
+      "endLine": 39,
+      "source": "memory",
+      "snippet": "- **Cookie 路径**: `D:\\work\\运营中心\\yxzx\\新点 e 交易相关材料\\日常数据运维工具\\OAuto\\oa_user_data` - **Token 提取**: 可从浏览器 Cookie 中提取 access_token 保存到 `access_token.txt` ### 📊 工作量评估 - 保函平台对接 - **文档**: 《接口文档-admin-20260420.docx》 - **功能点**: 9 项 - **总工时**: 18.5 人日（开发 9.5 + 测试 4.5 + 交付运维 4.5） - **输出**: 飞书表格 https://www.feishu.cn/sheets/TRBjsyUw0hUIU9tibCjcVnt3nGb - **评估格式**: 参考用户提供的截图（序号、功能点、功能描述、开发/测试/交付人日、小计、备注） ### ⏰ 定时提醒设置 - **需求**: 每周一提醒统计阳光优采商城上周订单量和本月订单量和金额 - **时间**: 周一上午 - **工具**: OpenClaw cron ### 🔧 技能修复 - **epoint-oa-login**: 修复 Windows 上浏览器窗口\"一闪而过\"问题 - 原因：Playwright 启动浏览器后没有保持窗口打开就退出了 - 解决：使用 `oa_login_v2.py` 保持浏览器窗口直到扫码完成 --- **记录时间**: 2026-04-20 17:16",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-27T00:05:04.485Z",
+      "lastRecalledAt": "2026-04-27T09:52:10.216Z",
+      "queryHashes": [
+        "e782637e94f2",
+        "bad4b8915bd9"
+      ],
+      "recallDays": [
+        "2026-04-27"
+      ],
+      "conceptTags": [
+        "oa-user-data",
+        "access-token",
+        "access-token.txt",
+        "接口文档-admin-20260420.docx",
+        "18.5",
+        "9.5",
+        "4.5",
+        "开发/测试/交付人日"
+      ]
+    },
+    "memory:memory/2026-03-13.md:31:81": {
+      "key": "memory:memory/2026-03-13.md:31:81",
+      "path": "memory/2026-03-13.md",
+      "startLine": 31,
+      "endLine": 81,
+      "source": "memory",
+      "snippet": "- **用途**: 搜索、安装、更新技能 ### 5. 安装 skills CLI - **版本**: v1.4.4 - **安装方式**: `npm install -g skills` - **用途**: 技能管理命令行工具 --- ## 🤖 模型配置更新 ### 添加新模型到百炼配置 在 `openclaw.json` 中添加了以下模型： - **kimi-k2.5** - 月之暗面 Kimi（128K 上下文） - **glm-5** - 智谱 GLM-5（128K 上下文） - **glm-4.7** - 智谱 GLM-4.7（128K 上下文） - **MiniMax-M2.5** - MiniMax（128K 上下文） ### 切换默认模型 - **之前**: bailian/qwen3.5-plus - **现在**: bailian/kimi-k2.5 - **重启时间**: 2026-03-13 17:24 --- ## 📊 定时任务检查 ### OpenClaw Cron 任务 | ID | 名称 | 计划 | 状态 | |---|---|---|---| | git-auto-commit | Git 自动提交 | 每天 17:30 | ✅ ok | | lottery-dlt-mon | 大乐透预测 - 周一 | 周一 17:00 | ⏳ idle | | lottery-ssq-tue | 双色球预测 - 周二 | 周二 17:00 | ⏳ idle | | lottery-dlt-wed | 大乐透预测 - 周三 | 周三 17",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-27T09:52:07.442Z",
+      "lastRecalledAt": "2026-04-28T00:10:46.585Z",
+      "queryHashes": [
+        "03fd423cfa6b",
+        "bad4b8915bd9",
+        "70f7446ca28d"
+      ],
+      "recallDays": [
+        "2026-04-27",
+        "2026-04-28"
+      ],
+      "conceptTags": [
+        "v1.4.4",
+        "openclaw.json",
+        "kimi-k2.5",
+        "glm-5",
+        "glm-4.7",
+        "minimax-m2.5",
+        "bailian/qwen3.5-plus",
+        "bailian/kimi-k2.5"
+      ]
+    },
+    "memory:memory/2026-04-17.md:1:45": {
+      "key": "memory:memory/2026-04-17.md:1:45",
+      "path": "memory/2026-04-17.md",
+      "startLine": 1,
+      "endLine": 45,
+      "source": "memory",
+      "snippet": "# 2026-04-17 Session Memory ## 📦 Hermes Agent 安装与配置 ### 安装位置 ``` D:\\openclaw-workspace\\hermes-agent-main\\ ``` ### 配置方式 - **系统**: Windows（无需 WSL2） - **API 提供商**: 阿里云百炼 - **API Key**: `sk-sp-896d84d6b8d946cea3d7e45d48c196dd` - **Base URL**: `https://coding.dashscope.aliyuncs.com/v1` - **默认模型**: `openai/qwen3.5-plus` ### 配置文件位置 - `C:\\Users\\63111\\.hermes\\.env` - 环境变量 - `C:\\Users\\63111\\.hermes\\config.yaml` - 主配置 - `C:\\Users\\63111\\.hermes\\auth.json` - 认证信息 ### 启动方式 ```cmd D:\\openclaw-workspace\\hermes-agent-main\\start.cmd ``` ### 关键经验 1. Hermes Agent 可以直接在 Windows 上运行，无需 WSL2 2. 配置需要通过 `hermes setup` 或手动编辑 `~/.hermes/` 目录下的文件 3. 模型名称需要指定 provider：`openai/qwen3.5-plus` 而非 `qwen3.5-plus` 4. 批处",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-27T09:52:07.442Z",
+      "lastRecalledAt": "2026-04-27T09:52:07.442Z",
+      "queryHashes": [
+        "03fd423cfa6b"
+      ],
+      "recallDays": [
+        "2026-04-27"
+      ],
+      "conceptTags": [
+        "openai",
+        "openclaw-workspace",
+        "hermes-agent-main",
+        "coding.dashscope.aliyuncs.com/v1",
+        "openai/qwen3.5-plus",
+        "config.yaml",
+        "auth.json",
+        "start.cmd"
+      ]
+    },
+    "memory:memory/2026-04-20.md:1:22": {
+      "key": "memory:memory/2026-04-20.md:1:22",
+      "path": "memory/2026-04-20.md",
+      "startLine": 1,
+      "endLine": 22,
+      "source": "memory",
+      "snippet": "## 2026-04-20 - 重要工作记录 ### 📧 OA 邮件分析工具优化 - **问题**: Python 脚本直接调用飞书 API 失败（需要企业高级权限） - **解决方案**: 改为 OpenClaw 工具集成架构 - Python 脚本只负责获取 OA 邮件数据 → 保存为 JSON - OpenClaw 使用飞书插件工具（`feishu_sheet`、`feishu_create_doc`）创建在线文档和表格 - OpenClaw 使用 `feishu_im_user_message` 发送通知消息 - **输出**: 飞书表格 + 飞书文档 + 本地备份 - **飞书 API 配置**: App ID=`cli_a92024d097381cc5`, App Secret=`bccDjxYuqOpx08k7MwcYxfYRMUQJMYWM` ### 📝 OA 日志自动化尝试 - **技能位置**: `D:\\openclaw-workspace\\skills\\oa-diary\\oa\\` - **发现**: 该用户的 OA 系统**禁用了 `rz_insert_rzdetail_v2` API 接口**，但其同事的 OA 环境未禁用 - **结论**: 不同 OA 环境的配置差异导致 API 可用性不同 - **替代方案**: 浏览器自动化填写网页表单（需要页面结构分析） - **Cookie 路径**: `D:\\work\\运营中心\\yxzx\\新点 e 交易相关材料\\日常数据运维工具\\OAuto\\oa_user_data` - **Token",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-27T09:52:10.216Z",
+      "lastRecalledAt": "2026-04-27T09:52:10.216Z",
+      "queryHashes": [
+        "bad4b8915bd9"
+      ],
+      "recallDays": [
+        "2026-04-27"
+      ],
+      "conceptTags": [
+        "备份",
+        "feishu-sheet",
+        "feishu-create-doc",
+        "feishu-im-user-message",
+        "cli-a92024d097381cc5",
+        "openclaw-workspace",
+        "oa-diary",
+        "rz-insert-rzdetail-v2"
+      ]
+    },
+    "memory:memory/2026-03-12.md:55:82": {
+      "key": "memory:memory/2026-03-12.md:55:82",
+      "path": "memory/2026-03-12.md",
+      "startLine": 55,
+      "endLine": 82,
+      "source": "memory",
+      "snippet": "**输出文件**: `D:/openclaw-workspace/output/陈海勇负责专区信息_最终版.xlsx` --- ## ⚠️ 技术限制记录 ### 腾讯文档 - ❌ 无法通过 HTTP 直接请求获取表格数据 - ❌ Chrome CDP 可以连接但数据是动态加载的 - ❌ Selenium 自动化会被检测 - ✅ 需要手动导出 Excel ### 小红书 - ❌ 网站有严格反爬虫机制 - ❌ 直接 HTTP 请求被拒绝（连接重置） - ❌ 需要登录才能查看内容 --- ## 📁 重要文件位置 | 文件 | 位置 | |------|------| | 陈海勇专区 Excel | `D:/openclaw-workspace/output/陈海勇负责专区信息_最终版.xlsx` | | 陈海勇专区报告 | `D:/openclaw-workspace/陈海勇专区整理报告.md` | | 彩票预测技能 | `D:\\PycharmProjects\\lottery-skill\\` | | OpenClaw 配置 | `C:\\Users\\63111\\.openclaw\\openclaw.json` |",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-27T09:52:10.216Z",
+      "lastRecalledAt": "2026-04-27T09:52:10.216Z",
+      "queryHashes": [
+        "bad4b8915bd9"
+      ],
+      "recallDays": [
+        "2026-04-27"
+      ],
+      "conceptTags": [
+        "openclaw-workspace/陈海勇专区整理报告.md",
+        "lottery-skill",
+        "openclaw.json",
+        "输出",
+        "文件",
+        "openclaw",
+        "output",
+        "负责"
+      ]
+    }
+  }
+}

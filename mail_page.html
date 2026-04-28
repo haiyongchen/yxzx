@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="zh-CN" class="mini-xs mini-sm mini-md mini-lg mini-lg-active"><head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>邮件</title>
+    <script src="../../fui/js/cssboot.js"></script><style id="lazy-load-style" type="text/css"></style><link rel="stylesheet" href="/OA9/fui/js/miniui/themes/default/miniui.css?_=9.2.9-sp4-1212_20260331">
+<link id="miniui-skin" rel="stylesheet" href="/OA9/fui/js/miniui/themes/aide/skins/default/skin.css?_=9.2.9-sp4-1212_20260331">
+<link rel="stylesheet" href="/OA9/fui/css/common.min.css?_=9.2.9-sp4-1212_20260331">
+<link id="common-skin" rel="stylesheet" href="/OA9/fui/css/themes/aide/skins/default/skin.css?_=9.2.9-sp4-1212_20260331">
+<link rel="stylesheet" href="/OA9/fui/css/modicons.min.css?_=9.2.9-sp4-1212_20260331">
+<link rel="stylesheet" href="/OA9/fui/js/miniui/themes/action/acticons.css?_=9.2.9-sp4-1212_20260331">
+<link rel="stylesheet" href="/OA9/fui/css/common.scale.css?_=9.2.9-sp4-1212_20260331">
+
+    <script>
+        SrcBoot.output([
+            './css/mail.css'
+        ])
+    </script><link rel="stylesheet" href="./css/mail.css?_=9.2.9-sp4-1212_20260331">
+
+</head>
+
+<body class="mail-body">
+
+
+<!-- 左右布局 -->
+<div class="fui-left">
+    <div class="nicescroll fui-left-bd" tabindex="1" style="overflow: hidden; outline: none;">
+        <div class="mail-aside" id="mail-aside">
+            <div class="mail-write">
+                <a href="mailsend" class="btn-writemail"><b class="edit"></b>写新邮件</a>
+            </div>
+            <div class="mail-aside-menu" tabindex="0" style="overflow: auto visible; outline: none; width: 211px;">
+                <div class="mail-common-section">
+                    <ul class="mail-component">
+                        <li class="mail-component-item">
+                            <div class="mail-component-label fui-list-selected">
+                                <i class="icon-drop"></i>
+                                <a href="mailreceivelist" class="text" id="mail-inbox">
+                                    收件箱<strong class="count">（1538/6711）</strong>
+                                </a>
+                                <a class="set" href="mailsetting"></a>
+                            </div>
+                            <ul class="mail-component-drop" id="mail-inbox-typecon">
+        <li class="mail-component-dropitem">
+            <a href="mailreceivelist?mailboxguid=5ba72913-e56e-4e0c-b0b7-03d6791a8cf5" class="text">
+                <i class="icon icon-custom"></i>外部邮件
+            </a>
+        </li>
+        <li class="mail-component-dropitem">
+            <a href="mailreceivelist?mailboxguid=00b82f55-16dd-478a-9926-c85a2905bd7f" class="text">
+                <i class="icon icon-custom"></i>系统邮件专属
+            </a>
+        </li>
+
+</ul>
+                        </li>
+                        <!-- 2024.6.19 领导要改就改吧 -->
+                        <li class="mail-component-item">
+                            <div class="mail-component-label hidden">
+                                <a href="mailreceivelist?taskType=1" class="text" id="mail-task">任务邮件<strong class="count">（49）</strong></a>
+                            </div>
+                        </li>
+                        <!-- 2024.6.19 领导要改就改吧 -->
+                        <li class="mail-component-item">
+                            <div class="mail-component-label hidden">
+                                <a href="mailsendlist?taskType=1" class="text" id="mail-track">任务追踪<strong class="count">（0）</strong></a>
+                            </div>
+                        </li>
+                        <!-- 2024.6.19 领导要加就加吧 -->
+                        <li class="mail-component-item">
+                            <div class="mail-component-label">
+                                <a href="taskboxdefault?taskType=0" class="text" id="mail-alltask">所有任务<strong class="count">（49）</strong></a>
+                            </div>
+                        </li>
+                        <!-- 2024.6.19 领导要加就加吧 -->
+                        <li class="mail-component-item">
+                            <div class="mail-component-label">
+                                <a href="taskboxdefault?taskType=1" class="text" id="mail-mytask">我的任务<strong class="count">（0）</strong></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mail-other-section">
+                    <ul class="mail-component">
+                        <li class="mail-component-item">
+                            <div class="mail-component-label">
+                                <a href="mailsendlist?taskType=2" class="text" id="mail-draft">草稿箱<strong class="count">（0）</strong></a>
+                            </div>
+                        </li>
+                        <li class="mail-component-item">
+                            <div class="mail-component-label">
+                                <a href="mailsendlist" class="text" id="mail-outbox">已发送<strong class="count">（213）</strong></a>
+                            </div>
+                        </li>
+                        <li class="mail-component-item">
+                            <div class="mail-component-label">
+                                <i class="icon-drop"></i>
+                                <a href="#" class="text" id="mail-tag">
+                                    邮件标签
+                                </a>
+                                <a class="set" href="mailsetting"></a>
+                            </div>
+                            <ul class="mail-component-drop mail-tag-con" id="mail-tag-con">
+        <li class="mail-component-dropitem">
+            <a href="mixboxdefault?mailboxguid=3a386cf1-0487-4b3f-8e98-50a14af96d71" class="text">
+                <i class="icon icon-tag"></i>培训
+            </a>
+        </li>
+        <li class="mail-component-dropitem">
+            <a href="mixboxdefault?mailboxguid=b1276e34-be08-412d-ba7f-e8e7a8f26b0a" class="text">
+                <i class="icon icon-tag"></i>专区升级
+            </a>
+        </li>
+        <li class="mail-component-dropitem">
+            <a href="mixboxdefault?mailboxguid=a2d3ab51-8a8c-4215-aedd-097488603733" class="text">
+                <i class="icon icon-tag"></i>专区上量
+            </a>
+        </li>
+        <li class="mail-component-dropitem">
+            <a href="mixboxdefault?mailboxguid=ce5b123f-e30e-49cd-98f8-c09f28ffc1cf" class="text">
+                <i class="icon icon-tag"></i>阳光优采专区开设
+            </a>
+        </li>
+        <li class="mail-component-dropitem">
+            <a href="mixboxdefault?mailboxguid=1ecd4c07-d07f-4e5c-8ac2-4bf4a5eff00d" class="text">
+                <i class="icon icon-tag"></i>阳光优采月报
+            </a>
+        </li>
+        <li class="mail-component-dropitem">
+            <a href="mixboxdefault?mailboxguid=2a268b23-80c6-4ec7-9154-9ef49abb0ccb" class="text">
+                <i class="icon icon-tag"></i>需求沟通
+            </a>
+        </li>
+        <li class="mail-component-dropitem">
+            <a href="mixboxdefault?mailboxguid=4048e6cd-ffec-40e9-916f-415c080c5c29" class="text">
+                <i class="icon icon-tag"></i>售前支撑
+            </a>
+        </li>
+        <li class="mail-component-dropitem">
+            <a href="mixboxdefault?mailboxguid=b8f3555f-6e9f-4084-9dd9-b653dfd2cb34" class="text">
+                <i class="icon icon-tag"></i>近期重点关注
+            </a>
+        </li>
+        <li class="mail-component-dropitem">
+            <a href="mixboxdefault?mailboxguid=11ce17a2-ab02-4093-aeb0-c75d7c427f0e" class="text">
+                <i class="icon icon-tag"></i>SA周报
+            </a>
+        </li>
+        <li class="mail-component-dropitem">
+            <a href="mixboxdefault?mailboxguid=21adde23-6b9a-46c2-947f-7999e21577ab" class="text">
+                <i class="icon icon-tag"></i>e交易专区开设
+            </a>
+        </li>
+
+</ul>
+                        </li>
+                        <li class="mail-component-item">
+                            <div class="mail-component-label">
+                                <a href="maildeletedlist" class="text" id="mail-deleted">回收站</a>
+                                <strong class="count"></strong>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mail-setting">
+                    <ul class="mail-component">
+                        <li class="mail-component-item">
+                            <div class="mail-component-label">
+                                <a href="mailsetting" class="text" id="mail-set">邮箱设置</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<i class="fui-left-toggle"></i><div id="ascrail2001" class="nicescroll-rails nicescroll-rails-vr" style="width: 8px; z-index: auto; background: rgb(255, 255, 255); cursor: default; position: absolute; top: 0px; left: 202px; height: 720px; opacity: 1; display: none;"><div class="nicescroll-cursors" style="position: relative; top: 0px; float: right; width: 6px; height: 720px; background-color: rgb(220, 220, 220); border: 1px solid rgb(255, 255, 255); background-clip: padding-box; border-radius: 3px;"></div></div><div id="ascrail2001-hr" class="nicescroll-rails nicescroll-rails-hr" style="height: 8px; z-index: auto; background: rgb(255, 255, 255); top: 712px; left: 0px; position: absolute; opacity: 1; cursor: default; display: block; width: 210px;"><div class="nicescroll-cursors" style="position: absolute; top: 0px; height: 6px; width: 209px; background-color: rgb(220, 220, 220); border: 1px solid rgb(255, 255, 255); background-clip: padding-box; border-radius: 3px; left: 0px;"></div></div></div>
+
+<div class="fui-right">
+    <iframe src="mailreceivelist" id="mail-rightframe" width="100%" height="100%" frameborder="0"></iframe>
+</div>
+
+<!-- 下拉列表模板 -->
+<script type="x-tmpl-mustache" id="mail-drop-tmpl">
+        {{#items}}
+        <li class="mail-component-dropitem">
+            <a href="{{url}}?mailboxguid={{id}}" class="text">
+                <i class="icon {{icon}}"></i>{{name}}
+            </a>
+        </li>
+        {{/items}}
+
+</script>
+<script src="../../fui/js/jsboot.js"></script><script src="/OA9/fui/js/dist/fui.min.js?_=9.2.9-sp4-1212_20260331"></script>
+<script src="/OA9/fui/js/miniui/local/zh_CN.js?_=9.2.9-sp4-1212_20260331"></script>
+<script src="/OA9/fui/js/dist/frame.min.js?_=9.2.9-sp4-1212_20260331"></script>
+
+<script>
+    SrcBoot.output(['../../fui/js/lib/jquery.nicescroll.min.js', './js/mail.js']);
+</script><script src="../../fui/js/lib/jquery.nicescroll.min.js?_=9.2.9-sp4-1212_20260331"></script>
+<script src="./js/mail.js?_=9.2.9-sp4-1212_20260331"></script>
+
+<script>
+    //<![CDATA[
+    epoint.initPage('mailframeaction', null, function (data) {
+        if ('config' in data) {
+            initPage(JSON.parse(data.config));
+        }
+    });
+
+    function freshNum() {
+        epoint.execute('mailframeaction.freshNum', null, null, function (data) {
+            if ("nums" in data) {
+                setNum(mini.decode(data.nums))
+            }
+        }, true);
+    }
+
+    function addtag(data, view) {
+        let tag = mini.decode(data.taginfo);
+        tag.id = tag.tagguid;
+        tag.name = tag.tagname;
+        appendTag(tag);
+    }
+
+    function freshtagandfold(data) {
+        resetFold(mini.decode(data.foldlist).item);
+        resetTag(mini.decode(data.taglist).item);
+    }
+
+    $('.nicescroll').niceScroll({
+        cursorcolor: "#dcdcdc",
+        cursoropacitymax: 1,
+        touchbehavior: false,
+        cursorwidth: 6,
+        cursorborder: "1px solid #fff",
+        cursorborderradius: "3px",
+        autohidemode: false,
+        background: "#fff",
+    });
+    $('.mail-aside-menu').getNiceScroll().remove();
+
+    //]]>
+</script>
+
+
+<input type="hidden" class="mini-hidden" id="_common_hidden_viewdata" value="{&quot;epoint_user_loginid&quot;:&quot;87E7AADD6363B7DDF0C919519F5B7143&quot;,&quot;cmdParams&quot;:&quot;{\&quot;pageUrl\&quot;:\&quot;https://oa.epoint.com.cn:8080/OA9/oa9/mail/mailframe\&quot;}&quot;}" style=""></body></html>

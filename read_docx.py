@@ -1,34 +1,31 @@
 # -*- coding: utf-8 -*-
 from docx import Document
-import os
+import sys
 
-doc_path = 'D:\\work\\运营中心\\yxzx\\新点e交易相关材料\\日常数据运维工具\\e交易专区收益成本统计报告.docx'
+if sys.platform == 'win32':
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
-# 读取Word文档
-doc = Document(doc_path)
+doc = Document(r'C:\Users\63111\Desktop\接口文档-admin-20260420.docx')
 
-print("=" * 80)
-print("e交易专区收益成本统计报告 - 内容分析")
-print("=" * 80)
+print("=" * 60)
+print("接口文档内容分析")
+print("=" * 60)
 
-# 提取所有段落
-print("\n【文档段落内容】\n")
-for i, para in enumerate(doc.paragraphs):
-    if para.text.strip():
-        print(f"段落 {i+1}: {para.text}")
+# 查找所有表格
+for i, table in enumerate(doc.tables):
+    print(f"\n=== 表格 {i+1} ===")
+    for j, row in enumerate(table.rows):
+        cells = [cell.text.strip() for cell in row.cells if cell.text.strip()]
+        if cells:
+            print(f"  行{j+1}: {' | '.join(cells[:5])}")
 
-# 提取所有表格
-print("\n\n【文档表格内容】\n")
-for table_idx, table in enumerate(doc.tables):
-    print(f"\n--- 表格 {table_idx + 1} ---")
-    for row_idx, row in enumerate(table.rows):
-        row_data = [cell.text for cell in row.cells]
-        print(f"行 {row_idx + 1}: {row_data}")
-
-# 检查是否有嵌入式Excel
-print("\n\n【嵌入式对象】\n")
-# Word文档中的嵌入对象通常在word/embeddings目录下
-embeddings_path = os.path.join(os.path.dirname(doc_path), 'temp_embeddings')
-print(f"文档包含嵌入式对象，需要进一步分析")
-
-print("\n" + "=" * 80)
+# 查找包含接口名称的段落
+print("\n\n=== 接口列表 ===")
+for i, p in enumerate(doc.paragraphs):
+    text = p.text.strip()
+    # 查找接口名称模式
+    if text and ('接口' in text or 'API' in text):
+        # 跳过纯术语定义
+        if not any(x in text for x in ['术语', '定义', 'RFC', 'HTTP', 'JSON', 'XML', 'REST']):
+            print(f'[{i}] {text[:200]}')

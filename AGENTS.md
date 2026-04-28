@@ -207,6 +207,49 @@ Think of it like a human reviewing their journal and updating their mental model
 
 The goal: Be helpful without being annoying. Check in a few times a day, do useful background work, but respect quiet time.
 
+## Skill Evolution (技能自进化)
+
+当完成涉及 **≥5 步工具调用**的复杂任务后，主动评估该流程是否可沉淀为可复用 Skill。
+
+### 触发条件
+- 工具调用次数 ≥ 5
+- 任务涉及多个文件/系统交互
+- 解决过程包含非显而易见的技巧或模式
+- 用户明确说"以后还要用"或类似表达
+
+### 评估标准
+1. **可复用性**：该流程是否在类似场景下可重复使用？
+2. **非平凡性**：是否包含需要学习的技巧、最佳实践或避坑指南？
+3. **独立性**：能否脱离当前具体上下文独立运行？
+4. **价值密度**：沉淀为 Skill 后能否显著提升未来效率？
+
+### 沉淀流程
+1. **判断**：任务完成后立即评估是否满足上述标准
+2. **记录**：如满足，在 `memory/skill-evolution-log.md` 记录候选 Skill
+3. **创建**：使用 `skill-evolver` Skill 创建正式 Skill 文件
+4. **验证**：确保 Skill 自包含、可独立运行
+
+### 日志格式
+```markdown
+## [EVO-YYYYMMDD-XXX] Skill名称
+
+**触发任务**: 任务简述
+**工具调用数**: N
+**评估时间**: ISO-8601
+**决策**: 沉淀为Skill / 暂不沉淀
+
+### 理由
+为什么决定创建或不创建Skill
+
+### Skill路径
+`skills/<skill-name>/SKILL.md`
+
+### 备注
+其他需要记录的信息
+```
+
+---
+
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
