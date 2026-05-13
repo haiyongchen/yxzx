@@ -1,0 +1,23 @@
+# Runtime and login/cache data
+**/oa_user_data/
+**/user_data/
+**/Default/Cache/
+**/Cache/
+**/Crashpad/
+
+# Python/IDE/build artifacts
+**/__pycache__/
+*.py[cod]
+.idea/
+
+# Office temporary lock files
+~$*
+
+# Common logs and temporary files
+**/temp/
+**/tmp/
+*.log
+*.tmp
+*.temp
+Thumbs.db
+.DS_Store
