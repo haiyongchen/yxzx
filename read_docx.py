@@ -1,31 +1,32 @@
-# -*- coding: utf-8 -*-
-from docx import Document
+import os
 import sys
 
-if sys.platform == 'win32':
-    import io
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+sys.stdout.reconfigure(encoding='utf-8')
 
-doc = Document(r'C:\Users\63111\Desktop\接口文档-admin-20260420.docx')
+base_dir = r'D:\work\运营中心\yxzx\阳光优采\需求\在线支付'
+docx_path = None
+for f in os.listdir(base_dir):
+    if f.endswith('.docx'):
+        docx_path = os.path.join(base_dir, f)
+        break
 
-print("=" * 60)
-print("接口文档内容分析")
-print("=" * 60)
+print(f"Reading: {docx_path}\n")
 
-# 查找所有表格
-for i, table in enumerate(doc.tables):
-    print(f"\n=== 表格 {i+1} ===")
-    for j, row in enumerate(table.rows):
-        cells = [cell.text.strip() for cell in row.cells if cell.text.strip()]
-        if cells:
-            print(f"  行{j+1}: {' | '.join(cells[:5])}")
+from docx import Document
+doc = Document(docx_path)
 
-# 查找包含接口名称的段落
-print("\n\n=== 接口列表 ===")
-for i, p in enumerate(doc.paragraphs):
-    text = p.text.strip()
-    # 查找接口名称模式
-    if text and ('接口' in text or 'API' in text):
-        # 跳过纯术语定义
-        if not any(x in text for x in ['术语', '定义', 'RFC', 'HTTP', 'JSON', 'XML', 'REST']):
-            print(f'[{i}] {text[:200]}')
+# Read all paragraphs
+print("=== 段落内容 ===")
+for i, para in enumerate(doc.paragraphs):
+    if para.text.strip():
+        style = para.style.name if para.style else 'Normal'
+        print(f"[{style}] {para.text}")
+
+# Read all tables
+print("\n=== 表格内容 ===")
+for t_idx, table in enumerate(doc.tables):
+    print(f"\n--- 表格 {t_idx + 1} ---")
+    for r_idx, row in enumerate(table.rows):
+        cells = [cell.text.strip() for cell in row.cells]
+        if any(cells):
+            print(f"  行{r_idx + 1}: {' | '.join(cells)}")

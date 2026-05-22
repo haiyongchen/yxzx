@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-04-28T00:10:46.585Z",
+  "updatedAt": "2026-05-20T03:08:31.105Z",
   "entries": {
     "memory:memory/2026-04-19.md:32:54": {
       "key": "memory:memory/2026-04-19.md:32:54",
@@ -40,18 +40,21 @@
       "endLine": 39,
       "source": "memory",
       "snippet": "## OA 邮件分析技能开发 ✅ 已沉淀 ### 技能位置 - `skills/oa-mail-analyzer/SKILL.md` - 技能文档 ✅ - `skills/oa-mail-analyzer/scripts/analyzer_v5.py` - 主脚本 - `skills/oa-mail-analyzer/` - 技能目录 ### 功能 1. 自动登录 OA 系统（Cookie 复用，无需每次扫码） 2. 获取指定天数内的邮件列表（默认 7 天） 3. 逐封阅读邮件正文内容 4. 智能分类：电子商城、招投标、系统通知、工作汇报、培训学习 5. 优先级标注：⭐⭐⭐（紧急）、⭐⭐（重要）、⭐（一般） 6. 生成飞书表格和文档 ### 使用方法 ```bash python D:\\openclaw-workspace\\skills\\oa-mail-analyzer\\scripts\\analyzer_v5.py ``` ### 配置参数 - `DAYS_RANGE = 7` - 分析天数 - `MAX_MAILS_TO_READ = 15` - 最多阅读邮件数 ### 输出 - 飞书表格：https://www.feishu.cn/sheets/SO2Xs2vlkh4XKNt0VfOclqWYn6g - 飞书文档：https://www.feishu.cn/docx/EMbKdBL8NoPX7xxmtDbcmdQMnRe - 本地 JSON：`D:\\openclaw-workspace\\oa_mails_full.json` ### 技术要点 1. OA 系统使",
-      "recallCount": 1,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1,
+      "totalScore": 3,
       "maxScore": 1,
       "firstRecalledAt": "2026-04-20T03:50:33.640Z",
-      "lastRecalledAt": "2026-04-20T03:50:33.640Z",
+      "lastRecalledAt": "2026-05-20T03:08:31.105Z",
       "queryHashes": [
-        "a71c783b2334"
+        "a71c783b2334",
+        "b8e45fbe8ebf",
+        "e30caf033f6e"
       ],
       "recallDays": [
-        "2026-04-20"
+        "2026-04-20",
+        "2026-05-20"
       ],
       "conceptTags": [
         "skills/oa-mail-analyzer/skill.md",
@@ -239,21 +242,23 @@
       "endLine": 81,
       "source": "memory",
       "snippet": "- **用途**: 搜索、安装、更新技能 ### 5. 安装 skills CLI - **版本**: v1.4.4 - **安装方式**: `npm install -g skills` - **用途**: 技能管理命令行工具 --- ## 🤖 模型配置更新 ### 添加新模型到百炼配置 在 `openclaw.json` 中添加了以下模型： - **kimi-k2.5** - 月之暗面 Kimi（128K 上下文） - **glm-5** - 智谱 GLM-5（128K 上下文） - **glm-4.7** - 智谱 GLM-4.7（128K 上下文） - **MiniMax-M2.5** - MiniMax（128K 上下文） ### 切换默认模型 - **之前**: bailian/qwen3.5-plus - **现在**: bailian/kimi-k2.5 - **重启时间**: 2026-03-13 17:24 --- ## 📊 定时任务检查 ### OpenClaw Cron 任务 | ID | 名称 | 计划 | 状态 | |---|---|---|---| | git-auto-commit | Git 自动提交 | 每天 17:30 | ✅ ok | | lottery-dlt-mon | 大乐透预测 - 周一 | 周一 17:00 | ⏳ idle | | lottery-ssq-tue | 双色球预测 - 周二 | 周二 17:00 | ⏳ idle | | lottery-dlt-wed | 大乐透预测 - 周三 | 周三 17",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3,
+      "totalScore": 4,
       "maxScore": 1,
       "firstRecalledAt": "2026-04-27T09:52:07.442Z",
-      "lastRecalledAt": "2026-04-28T00:10:46.585Z",
+      "lastRecalledAt": "2026-05-12T10:15:00.755Z",
       "queryHashes": [
         "03fd423cfa6b",
         "bad4b8915bd9",
-        "70f7446ca28d"
+        "70f7446ca28d",
+        "8f8e095b080e"
       ],
       "recallDays": [
         "2026-04-27",
-        "2026-04-28"
+        "2026-04-28",
+        "2026-05-12"
       ],
       "conceptTags": [
         "v1.4.4",
@@ -357,6 +362,69 @@
         "openclaw",
         "output",
         "负责"
+      ]
+    },
+    "memory:memory/2026-05-08.md:1:22": {
+      "key": "memory:memory/2026-05-08.md:1:22",
+      "path": "memory/2026-05-08.md",
+      "startLine": 1,
+      "endLine": 22,
+      "source": "memory",
+      "snippet": "# 2026-05-08 Daily Log ## 完成的工作 ### 1. 阳光优采上量会议纪要整理 - 读取桌面 `会议纪要.txt`（编码有些乱码，部分内容靠推测还原） - 创建飞书在线文档：https://www.feishu.cn/docx/V4XqdizFmoeDtuxBVqrccMJUnHh - 用户要求改为文字型格式（不要表格），已按参考样式重排 ### 2. 监管点.xlsx 数据确认处理 - 文件路径：`D:\\work\\龙虾可操作需求临时文件夹\\` - 三个文件：监管点.xlsx、监管点对应表关系.xlsx、项目数据表.xlsx - 逻辑：监管点D列 → 对应表关系B列匹配 → F列涉及表 → 项目数据表E列验证 - 输出：`监管点_已确认.xlsx`（结论列写在最后一列） - 结果：113行数据，49个匹配到监管点，62个未找到映射；34个全部表存在，15个部分存在 - 安装了 python-calamine 库（openpyxl 版本与某些文件不兼容） ### 3. 阳光优采平台运营推广报告_4月.docx 检查 - 路径：`D:\\work\\运营中心\\yxzx\\阳光优采\\月报相关\\` - 发现11个问题：措辞（截止至→截至）、标点缺失（21970元后缺句号）、编号跳跃（1直接跳到4）、供应商数量矛盾（44vs23）、TABLE3与TABLE1数据不匹配、TABLE4序号缺失5行、金额差0.1元、新开专区漏了小E商城等 - 已输出详细分析报告",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-20T03:08:07.814Z",
+      "lastRecalledAt": "2026-05-20T03:08:31.105Z",
+      "queryHashes": [
+        "b8e45fbe8ebf",
+        "e30caf033f6e"
+      ],
+      "recallDays": [
+        "2026-05-20"
+      ],
+      "conceptTags": [
+        "会议纪要.txt",
+        "监管点.xlsx",
+        "监管点对应表关系.xlsx",
+        "项目数据表.xlsx",
+        "监管点-已确认.xlsx",
+        "python-calamine",
+        "阳光优采平台运营推广报告-4月.docx",
+        "金额差0.1元"
+      ]
+    },
+    "memory:memory/2026-03-12.md:1:38": {
+      "key": "memory:memory/2026-03-12.md:1:38",
+      "path": "memory/2026-03-12.md",
+      "startLine": 1,
+      "endLine": 38,
+      "source": "memory",
+      "snippet": "# 2026-03-12 记忆 ## 📝 技能安装与配置 ### 腾讯文档技能 - **位置**: `D:\\PycharmProjects\\qq-doc-skill\\` (已删除) - **Token**: `TENCENT_DOCS_TOKEN=\"e23255dcdf51491cb208ecc9cc341e21\"` - **状态**: 安装成功，但腾讯文档无法通过自动化抓取完整数据 - **原因**: 腾讯文档使用动态加载 + 防爬虫机制 - **解决方案**: 需要手动导出 Excel ### 彩票预测技能 - **位置**: `D:\\PycharmProjects\\lottery-skill\\` - **状态**: ✅ 已创建并运行定时任务 - **推送计划**: - 周一 17:30 → 大乐透预测 → 周二 8:00 核对 - 周二 17:30 → 双色球预测 → 周三 8:00 核对 - 周三 17:30 → 大乐透预测 → 周四 8:00 核对 - 周四 17:30 → 双色球预测 → 周五 8:00 核对 - 周五 - 周日：休息 ### OpenClaw Gateway - **Token**: `2b71d3081ec85b96e068c3b43a71e348a7a181e1b4a12662` - **端口**: 18789 - **模式**: local --- ## 📊 陈海勇负责专区信息 根据架构图整理，陈海勇负责的分公司共 13 条记录： | 大区 | 分公司 | 负责人 | 数量 | 上量 | |------",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-20T03:08:31.105Z",
+      "lastRecalledAt": "2026-05-20T03:08:31.105Z",
+      "queryHashes": [
+        "e30caf033f6e"
+      ],
+      "recallDays": [
+        "2026-05-20"
+      ],
+      "conceptTags": [
+        "gateway",
+        "qq-doc-skill",
+        "tencent-docs-token",
+        "lottery-skill",
+        "记忆",
+        "技能",
+        "安装",
+        "配置"
       ]
     }
   }
