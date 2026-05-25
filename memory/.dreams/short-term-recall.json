@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-20T03:08:31.105Z",
+  "updatedAt": "2026-05-22T09:36:56.403Z",
   "entries": {
     "memory:memory/2026-04-19.md:32:54": {
       "key": "memory:memory/2026-04-19.md:32:54",
@@ -210,19 +210,21 @@
       "endLine": 39,
       "source": "memory",
       "snippet": "- **Cookie 路径**: `D:\\work\\运营中心\\yxzx\\新点 e 交易相关材料\\日常数据运维工具\\OAuto\\oa_user_data` - **Token 提取**: 可从浏览器 Cookie 中提取 access_token 保存到 `access_token.txt` ### 📊 工作量评估 - 保函平台对接 - **文档**: 《接口文档-admin-20260420.docx》 - **功能点**: 9 项 - **总工时**: 18.5 人日（开发 9.5 + 测试 4.5 + 交付运维 4.5） - **输出**: 飞书表格 https://www.feishu.cn/sheets/TRBjsyUw0hUIU9tibCjcVnt3nGb - **评估格式**: 参考用户提供的截图（序号、功能点、功能描述、开发/测试/交付人日、小计、备注） ### ⏰ 定时提醒设置 - **需求**: 每周一提醒统计阳光优采商城上周订单量和本月订单量和金额 - **时间**: 周一上午 - **工具**: OpenClaw cron ### 🔧 技能修复 - **epoint-oa-login**: 修复 Windows 上浏览器窗口\"一闪而过\"问题 - 原因：Playwright 启动浏览器后没有保持窗口打开就退出了 - 解决：使用 `oa_login_v2.py` 保持浏览器窗口直到扫码完成 --- **记录时间**: 2026-04-20 17:16",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2,
+      "totalScore": 3,
       "maxScore": 1,
       "firstRecalledAt": "2026-04-27T00:05:04.485Z",
-      "lastRecalledAt": "2026-04-27T09:52:10.216Z",
+      "lastRecalledAt": "2026-05-22T09:36:56.403Z",
       "queryHashes": [
         "e782637e94f2",
-        "bad4b8915bd9"
+        "bad4b8915bd9",
+        "51c1b9464a6b"
       ],
       "recallDays": [
-        "2026-04-27"
+        "2026-04-27",
+        "2026-05-22"
       ],
       "conceptTags": [
         "oa-user-data",
